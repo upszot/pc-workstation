@@ -12,7 +12,14 @@
     line: '%wheel ALL=(ALL) NOPASSWD: ALL'
     validate: 'visudo -cf %s'
 
-#no me esta tomando bien los alias...
+
+- name: Put SELinux in permissive mode, logging actions that would be blocked.
+  become: yes
+  ansible.posix.selinux:
+    policy: targeted
+    state: permissive
+
+
 - name: "Upload archivos configuracion"
   become: yes
   copy:
@@ -42,19 +49,4 @@
   with_items:
     - vim-default-editor
     
-
-# - name: Correct editor default selected
-#   become: yes
-#   alternatives:
-#     name: EDITOR
-#     path: /usr/bin/vim
-#     link: /etc/alternatives/editor
-
-# - name: Set vim as the default editor
-#   become: yes
-#   shell: "/usr/sbin/update-alternatives --set editor /usr/bin/vim || /usr/bin/update-alternatives --set editor /usr/bin/vim"
-# #  when: editor.stat.lnk_source != '/usr/bin/vim'
-
-
-
 

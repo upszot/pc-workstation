@@ -4,3 +4,4 @@ alias ll='ls -l'
 alias la='ls -lah'
 alias tailf='tail -f '
 
+alias saludo='echo Hola $(whoami)'

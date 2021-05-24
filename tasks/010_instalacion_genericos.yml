@@ -12,31 +12,25 @@
     - ca-certificates
     - curl
     - vim
-    - apt-transport-https
     - gnupg2
-    - fail2ban
-    - tcpdump
     - fedora-workstation-repositories
+    - dnf-plugins-core
     
-
-# - name: habilitar repo de google-chrome
-#   become: yes
-#   shell: dnf config-manager --set-enabled google-chrome
-#   args:
-#     executable: /bin/bash
-
-- name: Habilitar repo de google-chrome
+- name: Instalo google-chrome desde el repo de google
   become: yes
   dnf:
     name: google-chrome-stable
     enablerepo: google-chrome
     state: present
 
-# - name: "Instalar paquetes google-chrome-stable" 
-#   become: yes
-#   package:
-#     name: "{{ item }}"
-#     state: present
-#   with_items:
-#     - google-chrome-stable
 
+- name: "Instalar paquetes de redes" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - tcpdump
+    - fail2ban
+
+    

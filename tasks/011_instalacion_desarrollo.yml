@@ -4,7 +4,21 @@
     msg: " ---- Creacion de usuarios ----"
 
 
+- name: "add repo oficial sublime"
+  become: yes 
+  shell: dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
 
+- name: "Add repositories Visual Studio Code"
+  become: yes
+  yum_repository:
+    file: vscode
+    name: code
+    description: Visual Studio Code
+    baseurl: https://packages.microsoft.com/yumrepos/vscode
+    enabled: 1
+    gpgcheck: yes
+    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    
 - name: "Instalar paquetes para programar" 
   become: yes
   package:
@@ -13,5 +27,8 @@
   with_items:
     - git
     - ansible
+    - sublime-text
+    - codeblocks
+    - code
 
-
+    

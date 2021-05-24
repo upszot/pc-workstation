@@ -1,0 +1,56 @@
+---
+
+- debug:
+    msg: "---- Agregando Docker  ----"
+
+- name: "Quito paquetes docker viejos" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - docker
+    - docker-client
+    - docker-client-latest
+    - docker-common
+    - docker-latest
+    - docker-latest-logrotate
+    - docker-logrotate
+    - docker-selinux
+    - docker-engine-selinux
+    - docker-engine
+
+
+
+- name: "add repo oficial de docker"
+  become: yes 
+  shell: dnf config-manager  --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+
+- name: "Instalando docker" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - docker-ce 
+    - docker-ce-cli
+    - containerd.io
+    - docker-compose
+
+- name: Update Grub default config
+  become: yes 
+  shell: grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0" 
+
+- name: "Adding user: {{ ansible_user_id }} to grups docker"
+  become: yes
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: yes
+
+- name: Restart service docker
+  become: yes
+  service:
+    name: docker
+    state: restarted
+    enabled: yes

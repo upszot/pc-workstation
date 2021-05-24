@@ -12,6 +12,10 @@ Role de ansible para aprovisionar y configurar workstation.
 Plataformas testeadas:
 - [X] fedora 34
 
+## Pre-requisitos
+ - instalar ansible
+ - ansible-galaxy collection install ansible.posix
+
 ## Uso
 
 - Crear o modificar el archivo requirements.yml en el directorio raiz de la receta para incluir el rol.

@@ -12,6 +12,12 @@
   include: 001_crear_usuario.yml
   tags:
     - user_config
+    - never
+
+- name: "Realiza configuraciones genericas"
+  include: 002_config_genericas.yml
+  tags:
+    - config_genericos
 
 - name: "Include Instalacion paquetes genericos"
   include: 010_instalacion_genericos.yml
@@ -23,12 +29,10 @@
   tags:
     - install_desarrollo
 
-- name: "Realiza configuraciones genericas"
-  include: 100_config_genericas.yml
+- name: "Include Instalacion paquetes desarrollo"
+  include: 012_add_docker_fedora.yml
   tags:
-    - config_genericos
-
-
+    - add_docker
 
 
 #--- usado para realizar pruebas ---#
@@ -37,5 +41,5 @@
   tags:
     - never
     - pruebas
-    
+
 
