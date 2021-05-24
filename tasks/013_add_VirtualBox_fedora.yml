@@ -44,13 +44,12 @@
     groups: vboxusers
     append: yes
 
-#------------ Intento de agregar la placa para que despues con vagrant funcione... pero hasta ahora no----#
-# - name: "Agregando placas de red en VirtualBox "
-#   shell: "{{ item }}"
-#   with_items:
-#     - VBoxManage natnetwork add --netname vboxnet0 --network "192.168.10.0/24" --disable
-#     - VBoxManage natnetwork add 
-#     - VBoxManage natnetwork modify --netname natnet1 --dhcp on
+
+- name: "Agregando placas de red en VirtualBox "
+  shell: "{{ item }}"
+  with_items:
+    - VBoxManage hostonlyif create
+    - VBoxManage hostonlyif ipconfig vboxnet0  --ip 192.168.10.1 --netmask 255.255.255.0
 
 - name: "Instalar vagrant " 
   become: yes
