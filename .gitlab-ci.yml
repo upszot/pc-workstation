@@ -1,0 +1,41 @@
+cache:
+    key: "$CI_COMMIT_REF_NAME"
+    paths:
+        - tests/.vagrant
+
+stages:
+  - Sintaxis
+  - Ejecucion
+  - Cleanup
+
+Chequeo_Sintaxis:
+  stage: Sintaxis
+  tags:
+    - docker
+  script:
+    - "docker run -t -v $CI_PROJECT_DIR:/etc/ansible chelobarreto/ansible:latest cd /etc/ansible && ansible-playbook -i tests/test_inventory --syntax-check tests/test_playbook.yml"
+#    - "docker run -t -v $CI_PROJECT_DIR:/etc/ansible chelobarreto/ansible:latest cd /etc/ansible && ansible-galaxy install -r tests/requirements.yml --force && ansible-playbook -i tests/test_inventory --syntax-check tests/test_playbook.yml"
+    
+Ejecucion_IaC:
+  stage: Ejecucion
+  tags:
+    - vagrant
+  script:
+    - "cd tests/"
+    - "vagrant up"
+    - "cd .."
+    - "docker run -t -v $CI_PROJECT_DIR:/etc/ansible chelobarreto/ansible:latest cd /etc/ansible && ansible-playbook -i tests/test_inventory tests/test_playbook.yml"
+#    - "docker run -t -v $CI_PROJECT_DIR:/etc/ansible chelobarreto/ansible:latest cd /etc/ansible && ansible-galaxy install -r tests/requirements.yml --force && ansible-playbook -i tests/test_inventory tests/test_playbook.yml"
+
+  artifacts:
+    paths:
+      - tests/.vagrant
+    expire_in: 1 hour
+
+CleanUp:
+  stage:  Cleanup
+  tags:
+    - vagrant
+  script:
+    - "cd tests && vagrant destroy -f"
+  when: always

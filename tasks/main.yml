@@ -1,0 +1,41 @@
+---
+
+- debug:
+    msg: "---- INICIA ----"
+
+- name: "Include creacion de usuarios"
+  include: 000_hosts.yml
+  tags:
+    - host_config
+
+- name: "Include creacion de usuarios"
+  include: 001_crear_usuario.yml
+  tags:
+    - user_config
+
+- name: "Include Instalacion paquetes genericos"
+  include: 010_instalacion_genericos.yml
+  tags:
+    - install_genericos
+
+- name: "Include Instalacion paquetes desarrollo"
+  include: 011_instalacion_desarrollo.yml
+  tags:
+    - install_desarrollo
+
+- name: "Realiza configuraciones genericas"
+  include: 100_config_genericas.yml
+  tags:
+    - config_genericos
+
+
+
+
+#--- usado para realizar pruebas ---#
+- name: "Pruebas - No incluir"
+  include: pruebas.yml
+  tags:
+    - never
+    - pruebas
+    
+

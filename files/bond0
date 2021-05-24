@@ -1,0 +1,24 @@
+#Configuracion de bonding
+#/etc/network/interfaces.d/bond0
+
+# Define slaves   
+auto eth0
+iface eth0 inet manual
+    bond-master bond0
+    bond-primary eth0
+    bond-mode active-backup
+   
+auto wlan0
+iface wlan0 inet manual
+    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+    bond-master bond0
+    bond-primary eth0
+    bond-mode active-backup
+
+# Define master
+auto bond0
+iface bond0 inet dhcp
+    bond-mode active-backup
+    bond-slaves none
+    bond-primary eth0
+    bond-miimon 100

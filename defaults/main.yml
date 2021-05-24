@@ -1,0 +1,10 @@
+#Aca la definicion de variables
+
+
+#URL-Downloads
+ANYCONNECT_VERSION: 'anyconnect-linux64-4.8.03052'
+URL_ANYCONNECT: 'https://dgsiaf.mecon.gov.ar/files/{{ ANYCONNECT_VERSION }}-predeploy-k9.tar.gz'
+CERTIFICADO_CA_1: 'http://www.mecon.gov.ar/camecon/cacert.crt'
+CERTIFICADO_CA_2: 'http://www2.mecon.gov.ar/camecon2/cacert.crt'
+
+

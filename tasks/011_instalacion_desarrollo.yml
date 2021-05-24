@@ -1,0 +1,17 @@
+---
+
+- debug:
+    msg: " ---- Creacion de usuarios ----"
+
+
+
+- name: "Instalar paquetes para programar" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - git
+    - ansible
+
+

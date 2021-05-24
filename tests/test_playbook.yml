@@ -1,0 +1,7 @@
+- hosts:
+    - tests
+
+  roles:
+    - role: pc-workstation
+
+

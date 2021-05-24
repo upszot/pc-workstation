@@ -1,0 +1,42 @@
+---
+
+- debug:
+    msg: "---- Instalacion de paquetes  ----"
+
+- name: "Instalar paquetes basicos" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - ca-certificates
+    - curl
+    - vim
+    - apt-transport-https
+    - gnupg2
+    - fail2ban
+    - tcpdump
+    - fedora-workstation-repositories
+    
+
+# - name: habilitar repo de google-chrome
+#   become: yes
+#   shell: dnf config-manager --set-enabled google-chrome
+#   args:
+#     executable: /bin/bash
+
+- name: Habilitar repo de google-chrome
+  become: yes
+  dnf:
+    name: google-chrome-stable
+    enablerepo: google-chrome
+    state: present
+
+# - name: "Instalar paquetes google-chrome-stable" 
+#   become: yes
+#   package:
+#     name: "{{ item }}"
+#     state: present
+#   with_items:
+#     - google-chrome-stable
+

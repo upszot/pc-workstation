@@ -1,0 +1,64 @@
+---
+
+- debug:
+    msg: "---- Agregando Docker  ----"
+
+# 4. Instalar firmas GPG del repo de Docker
+# curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+# sudo apt-key fingerprint 0EBFCD88
+
+- name: ensure repository key is installed
+  become: yes
+  apt_key:
+    url: "https://download.docker.com/linux/raspbian/gpg"
+    state: present
+
+# 5. Agregar repo de Docker
+# echo "deb [arch=armhf] https://download.docker.com/linux/debian \
+#      $(lsb_release -cs) stable" | \
+#     sudo tee /etc/apt/sources.list.d/docker.list
+
+- name: ensure docker registry is available
+  become: yes
+  apt_repository: 
+    repo: 'deb [arch=armhf] https://download.docker.com/linux/raspbian {{ ansible_distribution_release }} stable' 
+    filename: docker
+    state: present
+    update_cache: yes
+
+# 6. Instalar Docker
+# sudo apt-get update && sudo apt-get install -y docker-ce docker-compose
+
+- name: "Quito paquete que genera error al instalar docker" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - aufs-dkms
+
+- name: "Instalando docker" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - docker-ce
+    - docker-compose
+
+# 7. Agregar usuario al grupo docker y desloguearse y volverse a loguear
+# sudo usermod -a -G docker kbs
+# #(logout and login)
+
+- name: "Adding user: {{ USERNAME }} to grups docker"
+  become: yes
+  user:
+    name: "{{ USERNAME }}"
+    groups: docker
+    append: yes
+
+- name: Restart service docker
+  become: yes
+  service:
+    name: docker
+    state: restarted
