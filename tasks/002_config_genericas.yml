@@ -66,7 +66,18 @@
     state: present
 
 - name: "killall dnfdragora-updater"
-  become: yes 
+  become: yes
   shell: killall dnfdragora-updater
   ignore_errors: yes
   
+
+- name: Disable firewalld or iptable
+  become: yes
+  ansible.builtin.service:
+    name: "{{ item}}"
+    enabled: no
+    state: stopped
+  with_items:
+    - iptables
+    - firewalld
+  ignore_errors: yes

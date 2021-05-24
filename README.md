@@ -8,6 +8,9 @@ Role de ansible para aprovisionar y configurar workstation.
 	- configura sudo para que no pida password
 	- Instala Paquetes basicos
 	- Instala paquetes para desarrollo
+	- Instala docker y docker-compose
+	- instala y configura virtualbox y vagrant
+	
 
 Plataformas testeadas:
 - [X] fedora 34
