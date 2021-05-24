@@ -31,9 +31,15 @@
 
 - name: "Include Instalacion paquetes desarrollo"
   include: 012_add_docker_fedora.yml
+  when: ansible_facts['distribution'] == "Fedora"
   tags:
     - add_docker
 
+- name: "Install VirtualBox"
+  include: 013_add_VirtualBox_fedora.yml
+  when: ansible_facts['distribution'] == "Fedora"
+  tags:
+    - add_VirtualBox
 
 #--- usado para realizar pruebas ---#
 - name: "Pruebas - No incluir"

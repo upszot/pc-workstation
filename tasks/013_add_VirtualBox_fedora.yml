@@ -1,0 +1,57 @@
+---
+
+#----------------------------------------#
+# Install y config VirtualBox en fedora
+#----------------------------------------#
+
+
+- name: "Instalar dependencias " 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "@development-tools"
+    - kernel-headers
+    - kernel-devel
+    - dkms
+    - elfutils-libelf-devel
+    - qt5-qtx11extras
+
+- name: "add repo oficial VirtualBox"
+  become: yes 
+  shell: dnf config-manager --add-repo http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
+
+- name: "Instalar virtualbox-6 " 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - VirtualBox-6.*
+    - virtualbox-guest-additions
+
+
+- name: "add group vboxusers"
+  ansible.builtin.group:
+    name: vboxusers
+    state: present
+
+- name: "Adding user: {{ ansible_user_id }} to grups vboxusers"
+  become: yes
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: vboxusers
+    append: yes
+
+- name: "Agregando placa de red en VirtualBox - Nat 192.168.10.0/24"
+  shell: VBoxManage natnetwork add --netname vboxnet0 --network "192.168.10.0/24" --enable
+
+- name: "Instalar vagrant " 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - vagrant
+

@@ -68,5 +68,5 @@
 - name: "killall dnfdragora-updater"
   become: yes 
   shell: killall dnfdragora-updater
-
+  ignore_errors: yes
   
