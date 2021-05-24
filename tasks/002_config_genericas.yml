@@ -30,8 +30,6 @@
     #mode: 0755
   with_items:
     - 00-aliases.sh
-  tags:
-      - conf_genericos
 
 - name: "Quitar nano como editor por defecto" 
   become: yes
@@ -48,5 +46,27 @@
     state: present
   with_items:
     - vim-default-editor
-    
+  
+- name: Set HOME
+  set_fact:
+    HOME: "{{ lookup('env','HOME') }}"
 
+- name: "copio autostart de dnfdragora-updater para luego deshabilitarlo"
+  copy:
+    src: "{{ item }}"
+    dest: "{{ HOME}}/.config/autostart/"
+  with_items:
+    - /etc/xdg/autostart/org.mageia.dnfdragora-updater.desktop
+
+- name: "deshabilita dnfdragora-updater"
+  #become: yes
+  lineinfile:
+    dest: "{{ HOME }}/.config/autostart/org.mageia.dnfdragora-updater.desktop"
+    line: 'Hidden=true'
+    state: present
+
+- name: "killall dnfdragora-updater"
+  become: yes 
+  shell: killall dnfdragora-updater
+
+  
