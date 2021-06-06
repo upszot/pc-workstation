@@ -3,9 +3,6 @@
 - debug:
     msg: " ---- Creacion de usuarios ----"
 
-
-
-
 - name: Set USERNAME
   set_fact:
     USERNAME: "{{ lookup('env','USER') }}"
@@ -15,16 +12,13 @@
   local_action: shell grep  {{ USERNAME }} /etc/shadow |awk -F ':' '{print $2}'
   register: PASSWORD_SHA512
 
-
-
-
-- name: "create user: {{ USERNAME }} whith equal Password local host - RedHat y derivados"
+- name: "create user: {{ USERNAME }} whith equal Password local host"
   become: yes
   user:
     name: "{{ USERNAME }}"
     password: "{{ PASSWORD_SHA512.stdout }}"
-    groups: wheel
-    when: (ansible_facts['os_family'] == "RedHat" ) 
+    groups: "{{ GROUP_ADMIN }}"
+
 
 - name: Add Clave Publica en authorized 
   become: yes

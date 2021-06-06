@@ -1,35 +1,63 @@
 ---
 
+#--- usado para realizar pruebas ---#
+- name: "Pruebas - No incluir"
+  include: _prueba/pruebas.yml
+  tags:
+    - never
+    - pruebas
+
+
 - debug:
     msg: "---- INICIA ----"
 
+- name: "Seteo Variables segun OS_Family"
+  include: 000_set_vars.yml
+  tags:
+    - always
+    - set_vars
+
 - name: "Include creacion de usuarios"
-  include: 000_hosts.yml
+  include: 001_hosts.yml
   tags:
     - host_config
 
 - name: "Include creacion de usuarios"
-  include: 001_crear_usuario.yml
+  include: 002_crear_usuario.yml
   tags:
     - user_config
     - never
 
-- name: "Realiza configuraciones genericas"
-  include: 002_config_genericas.yml
-  tags:
-    - config_genericos
+#-------- install paquetes genericos ------#
 
+#Incluye llamadas a los yml segun SO
 - name: "Include Instalacion paquetes genericos"
-  include: 010_instalacion_genericos.yml
+  include: 003_instalacion_genericos.yml
   tags:
     - install_genericos
 
+
+#---------- Config Genericas -------------#
+- name: "Realiza configuraciones genericas"
+  include: 004_config_genericas.yml
+  tags:
+    - config_genericos
+
+
+
+#----------- Herramientas de desarrollo ----#
 - name: "Include Instalacion paquetes desarrollo"
   include: 011_instalacion_desarrollo.yml
   tags:
     - install_desarrollo
 
-- name: "Include Instalacion paquetes desarrollo"
+- name: "Instalacion / Configuracion compiz"
+  include: 014_entorno_grafico_compiz.yml
+  tags:
+    - compiz
+
+#----- Herramientas de virtualizacion microservicios y vm -----#
+- name: "Include Docker"
   include: 012_add_docker_fedora.yml
   when: ansible_facts['distribution'] == "Fedora"
   tags:
@@ -40,12 +68,4 @@
   when: ansible_facts['distribution'] == "Fedora"
   tags:
     - add_VirtualBox
-
-#--- usado para realizar pruebas ---#
-- name: "Pruebas - No incluir"
-  include: pruebas.yml
-  tags:
-    - never
-    - pruebas
-
 

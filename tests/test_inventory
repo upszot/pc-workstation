@@ -1,2 +1,7 @@
 [tests]
-xps
+192.168.10.241 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+
+[productivos]
+127.0.0.1
+#xps
+pc-brisi

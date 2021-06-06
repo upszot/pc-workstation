@@ -1,20 +1,15 @@
 ---
 
-- debug:
-    msg: "---- Instalacion de paquetes  ----"
-
 - name: "Instalar paquetes basicos" 
   become: yes
   package:
     name: "{{ item }}"
     state: present
   with_items:
-    - ca-certificates
-    - curl
-    - vim
-    - gnupg2
-    - fedora-workstation-repositories
+    - fedora-workstation-repositories #fedora
     - dnf-plugins-core
+
+
     
 - name: Instalo google-chrome desde el repo de google
   become: yes
@@ -22,15 +17,3 @@
     name: google-chrome-stable
     enablerepo: google-chrome
     state: present
-
-
-- name: "Instalar paquetes de redes" 
-  become: yes
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - tcpdump
-    - fail2ban
-
-    

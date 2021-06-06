@@ -1,0 +1,46 @@
+---
+
+- debug:
+    msg: "---- Instalacion de paquetes  ----"
+
+- name: "Include Instalacion paquetes genericos"
+  include: fedora/003_instalacion_genericos_fedora.yml
+  when: ansible_facts['distribution'] == "Fedora"
+
+- name: "Include Instalacion paquetes genericos"
+  include: ubuntu/003_instalacion_genericos_ubuntu.yml
+  when: ansible_facts['distribution'] == "Ubuntu"
+
+- name: "Instalar paquetes basicos" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - ca-certificates
+    - curl
+    - vim
+    - gnupg2
+    - policycoreutils
+    - "{{ chrome_app_name }}"   #Los repos oficiales se agregan dependiendo del SO
+
+
+- name: "Instalar paquetes de redes" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - tcpdump
+    - fail2ban
+
+
+- name: "Instalar paquetes para conectarse escritorios remotos" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - virt-viewer
+    - remmina
+#    - anydesk

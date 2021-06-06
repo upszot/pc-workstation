@@ -1,5 +1,6 @@
 - hosts:
     - tests
+    - productivos
 
   roles:
     - role: pc-workstation

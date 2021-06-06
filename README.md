@@ -13,12 +13,15 @@ Role de ansible para aprovisionar y configurar workstation.
 	
 
 Plataformas testeadas:
-- [X] fedora 34
+- [X] Fedora-Mate-34
+- [ ] Ubuntu-Mate-20.04.1-LTS
+
 
 ## Pre-requisitos
  - instalar ansible
  - ansible-galaxy collection install ansible.posix
-
+ - ansible-galaxy collection install community.general
+ 
 ## Uso
 
 - Crear o modificar el archivo requirements.yml en el directorio raiz de la receta para incluir el rol.

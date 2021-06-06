@@ -1,0 +1,65 @@
+---
+
+
+#Muestro todas las variables
+# - debug:
+#     msg: 
+#       - "{{ ansible_facts }}"
+#       # - "{{ ansible_default_ipv4.address }} "
+
+
+
+- name: "Set pc brisi"
+  set_fact:
+    PC_Brisi: "NO"
+
+- name: "Set pc brisi"
+  set_fact:
+    PC_Brisi: "SI"
+  when: 
+    - ansible_facts['system_vendor'] == "LENOVO"
+    - ansible_facts['product_version'] == "IdeaPad 3 15IIL05"
+#    - system_vendor == "LENOVO"
+ #   - product_version == "IdeaPad 3 15IIL05"
+
+
+
+- debug:
+    msg: 
+      - "Es la pc de brisi: {{ PC_Brisi }}"
+      - "{{ ansible_facts['product_version'] }}"
+      - "{{ ansible_facts['system_vendor'] }}"
+
+
+#modificar entrada del menu de efi
+#https://www.linuxbabe.com/command-line/how-to-use-linux-efibootmgr-examples
+#https://linuxmint-installation-guide.readthedocs.io/es/latest/efi.html
+
+
+
+#para la pc de Brisi agregar al grub
+#GRUB_CMDLINE_LINUX_DEFAULT="pci=nocrs quiet"
+#"product_version": "IdeaPad 3 15IIL05"
+#"system_vendor": "LENOVO",
+
+
+  # - name: "Add Option pci=nocrs en grub default"
+  #   become: yes
+  #   replace:
+  #     path: /etc/default/grub
+  #     regexp: ^(GRUB_CMDLINE_LINUX_DEFAULT=".+)"
+  #     replace: '\g<1> pci=nocrs "'
+  #   when: 
+  #     - system_vendor == "LENOVO"
+  #     - product_version == "IdeaPad 3 15IIL05"
+  #     #- ansible_os_family == "RedHat" and ansible_distribution_version|int >= 7
+  #     # - ipv6_status.stdout!= "1" 
+
+  # - name: "Regenerar grub.cfg"
+  #   become: yes
+  #   shell: 'grub2-mkconfig -o /boot/grub2/grub.cfg'
+  #   tags:
+  #     - disable_ipv6    
+  #   when: 
+  #     - ansible_os_family == "RedHat" and ansible_distribution_version|int >= 7
+

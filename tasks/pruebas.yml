@@ -1,6 +1,0 @@
----
-
-
-#Muestro todas las variables
-- debug:
-    msg: "{{ ansible_facts }}"
