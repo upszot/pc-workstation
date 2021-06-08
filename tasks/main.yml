@@ -44,6 +44,11 @@
     - config_genericos
 
 
+- name: "Fix-Bug_kernel_207759_Touchpad"
+  include: 005_Fix-KernelBug_207759_touchpad.yml
+  tags:
+    - Fix-KernelBug_207759
+
 
 #----------- Herramientas de desarrollo ----#
 - name: "Include Instalacion paquetes desarrollo"
@@ -58,8 +63,7 @@
 
 #----- Herramientas de virtualizacion microservicios y vm -----#
 - name: "Include Docker"
-  include: 012_add_docker_fedora.yml
-  when: ansible_facts['distribution'] == "Fedora"
+  include: 012_add_docker.yml
   tags:
     - add_docker
 

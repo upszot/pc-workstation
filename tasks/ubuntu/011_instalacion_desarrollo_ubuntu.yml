@@ -16,7 +16,7 @@
   become: yes
   apt_repository:
     repo: "{{ sublime_repo_debian }}"
-    filename: "{{ sublime_repo_filename }}.list"
+    filename: "{{ sublime_repo_filename }}"
     state: present
     update_cache: yes
 
@@ -32,7 +32,7 @@
   become: yes
   apt_repository:
     repo: "{{ vscode_repo_debian }}"
-    filename: "{{ visualStudioCode_repo_filename }}.list"
+    filename: "{{ visualStudioCode_repo_filename }}"
     state: present
     update_cache: yes
 

@@ -20,9 +20,15 @@
 
 #----------- Generales ---------------------#
 
+# - name: "Conocer si tiene ip dinamica"
+#   become: yes
+#   shell: "ip addr show |grep {{ ansible_default_ipv4.address }} | grep -i dynamic -c "
+#   register: is_ip_dinamic
+
+
 - name: "Conocer si tiene ip dinamica"
   become: yes
-  shell: "ip addr show |grep {{ ansible_default_ipv4.address }} | grep -i dynamic -c "
+  shell: "ip route |grep default | grep -i dhcp -c "
   register: is_ip_dinamic
 
 

@@ -1,0 +1,16 @@
+---
+
+- name: Debian/Ubuntu Family | Add gpg signing key for docker
+  become: yes
+  apt_key:
+    url: "{{ docker_gpg_key_DEB }}"
+    state: present
+
+- name: "Debian/Ubuntu Family | Adding repository {{ docker_repo_debian }}"
+  become: yes
+  apt_repository:
+    repo: "{{ docker_repo_debian }}"
+    filename: "{{ docker_repo_filename }}"
+    state: present
+    update_cache: yes
+

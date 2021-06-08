@@ -7,6 +7,8 @@
     state: present
   with_items:
     - apt-transport-https
+    - software-properties-common
+    - ca-certificates
     - policycoreutils
     - policycoreutils-python-utils
     - python3-selinux
@@ -28,6 +30,18 @@
     state: present
     update_cache: yes
 
+#--------- add Repo anydesk -----------#
+- name: Debian/Ubuntu Family | Add gpg signing key for anydesk
+  become: yes
+  apt_key:
+    url: "{{ anydesk_gpg_key_DEB }}"
+    state: present
 
-
+- name: Debian/Ubuntu Family | Adding repository anydesk
+  become: yes
+  apt_repository:
+    repo: "{{ anydesk_repo_debian }}"
+    filename: "{{ anydesk_repo_filename }}"
+    state: present
+    update_cache: yes
 

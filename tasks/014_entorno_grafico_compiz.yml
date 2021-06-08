@@ -1,30 +1,28 @@
 ---
 
-# - name: "Include Instalacion paquetes desarrollo"
-#   include: ubuntu/011_instalacion_desarrollo_ubuntu.yml
-#   when: ansible_facts['distribution'] == "Ubuntu"
+- debug:
+    msg: " ---- installacion / configuracion Compiz ----"
 
-#https://ubunlog.com/como-instalar-compiz-en-ubuntu-mate/
-#---------- para ubuntu... los paquetes en fedora son distintos
-- name: "Instalar paquetes compiz" 
-  become: yes
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - compiz
-    - compiz-plugins
-    - compizconfig-settings-manager
+- name: "Include 014_entorno_grafico_compiz_fedora"
+  include: fedora/014_entorno_grafico_compiz_fedora.yml
+  when: ansible_facts['distribution'] == "Fedora"
+
+- name: "Include 014_entorno_grafico_compiz_ubuntu"
+  include: ubuntu/014_entorno_grafico_compiz_ubuntu.yml
   when: ansible_facts['distribution'] == "Ubuntu"
-
-- name: "Setea compiz como manejador de ventanas por defecto"
-#  become: yes 
-  shell: "gsettings set org.mate.session.required-components windowmanager compiz"
-  when: ansible_facts['distribution'] == "Ubuntu"
-
-
-- pause:
-    prompt: "Para ver el cambio, debe relogiarse a la session grafica en el host remoto"
 
 #Deshabilita compiz
 #gsettings reset org.mate.session.required-components windowmanager
+
+
+- name: "Copy script import config compiz"
+  copy:
+    src: "GUI/compiz_config.py"
+    dest: "{{ ansible_env.HOME }}/scipts/"
+    mode: '0755'
+   
+
+
+- pause:
+    prompt: "Falta realizar importacion de la configuracion de compiz"
+

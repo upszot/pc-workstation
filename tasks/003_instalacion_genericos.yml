@@ -43,4 +43,4 @@
   with_items:
     - virt-viewer
     - remmina
-#    - anydesk
+    - anydesk

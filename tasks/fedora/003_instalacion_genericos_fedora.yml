@@ -17,3 +17,17 @@
     name: google-chrome-stable
     enablerepo: google-chrome
     state: present
+
+
+- name: "Add repositories AnyDesk"
+  become: yes
+  yum_repository:
+    file: "{{ anydesk_repo_filename }}.repo"
+    name: anydesk
+    description: AnyDesk
+    baseurl: http://rpm.anydesk.com/fedora/$basearch/
+    enabled: 1
+    gpgcheck: yes
+    gpgkey: "{{ anydesk_gpg_key_RPM }}"
+
+
