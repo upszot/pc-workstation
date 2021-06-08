@@ -1,9 +1,5 @@
 ---
 
-#para la pc de Brisi agregar al grub
-#GRUB_CMDLINE_LINUX_DEFAULT="pci=nocrs quiet"
-#"product_version": "IdeaPad 3 15IIL05"
-#"system_vendor": "LENOVO",
 
 
   #update-alternatives --set editor /usr/bin/vim.basic
@@ -27,3 +23,12 @@
     name: editor
     path: /usr/bin/vim.basic
     priority: -10
+
+- name: set localhost in /etc/hosts
+  become: yes
+  lineinfile:
+    state: present
+    dest: /etc/default/keyboard
+    line: 'XKBOPTIONS="terminate:ctrl_alt_bksp"'
+
+

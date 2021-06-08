@@ -21,6 +21,14 @@
     dest: "{{ ansible_env.HOME }}/scipts/"
     mode: '0755'
    
+- name: "Copy config profile for compiz"
+  copy:
+    src: "GUI/Compiz_profiles"
+    dest: "{{ ansible_env.HOME }}/"
+
+
+#https://askubuntu.com/questions/244333/compiz-profile-settings-export-and-import-using-command-line
+#https://ubuntuperonista.blogspot.com/2020/06/como-instalo-y-configuro-compiz-en-ubuntu-mate-2004focal.html
 
 
 - pause:

@@ -1,6 +1,9 @@
 #seteo de variables
 
 chrome_app_name: google-chrome-stable
+steam_app_deb: steam-launcher
+steam_app_rpm: steam  
+
 
 #------- Comunes entra las distros --------#
 chrome_repo_filename: google-chrome
@@ -8,6 +11,7 @@ sublime_repo_filename: sublime-text
 visualStudioCode_repo_filename: vscode
 anydesk_repo_filename: anydesk-stable
 docker_repo_filename: docker
+steam_repo_filename: steam
 
 
 #GPG_key
@@ -19,7 +23,7 @@ anydesk_gpg_key_DEB: "https://keys.anydesk.com/repos/DEB-GPG-KEY"
 anydesk_gpg_key_RPM: "https://keys.anydesk.com/repos/RPM-GPG-KEY"
 
 docker_gpg_key_DEB: "https://download.docker.com/linux/ubuntu/gpg"
-
+steam_gpg_IDkey_DEB: "B05498B7"
 
 #------- Ubuntu --------#
 #Variables para debian y derivados
@@ -32,7 +36,7 @@ sublime_repo_debian: "deb https://download.sublimetext.com/ apt/stable/"
 vscode_repo_debian:  "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
 anydesk_repo_debian: "deb http://deb.anydesk.com/ all main"
 docker_repo_debian:  "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-
+steam_repo_debian: "deb http://repo.steampowered.com/steam/ precise steam"
 
 
 #------- Fedora --------#

@@ -1,0 +1,26 @@
+---
+
+- name: "Include 020_Games__fedora"
+  include: fedora/020_Games_fedora.yml
+  when: ansible_facts['distribution'] == "Fedora"
+
+- name: "Include 020_Games_ubuntu.yml"
+  include: ubuntu/020_Games_ubuntu.yml
+  when: ansible_facts['distribution'] == "Ubuntu"
+
+- name: "Set STEAM_APP"
+  set_fact:
+    STEAM_APP: "{% if   ansible_facts['distribution'] == 'Ubuntu' %} '{{ steam_app_deb }}' 
+                {% elif ansible_facts['distribution'] == 'Fedora' %} '{{ steam_app_rpm }}'
+                {% endif %}"
+
+- name: "Instalando plataformas de juegos " 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ STEAM_APP }}"
+
+
+

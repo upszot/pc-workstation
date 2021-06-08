@@ -73,3 +73,8 @@
   tags:
     - add_VirtualBox
 
+- name: "Install plataformas de games"
+  include: 020_Games.yml
+  tags:
+    - add_Games
+

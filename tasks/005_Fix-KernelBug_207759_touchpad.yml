@@ -42,7 +42,7 @@
     - ansible_facts['system_vendor'] == "LENOVO"
     - ansible_facts['product_version'] == "IdeaPad 3 15IIL05"
     - ansible_facts['distribution'] == "Ubuntu"
-    - '"pci=nocrs" in ( GRUB_CMDLINE_LINUX.stdout )'
+    - '"pci=nocrs" not in ( GRUB_CMDLINE_LINUX.stdout )'
   tags:
     - Fix-KernelBug_207759
 
@@ -54,7 +54,7 @@
     - ansible_facts['system_vendor'] == "LENOVO"
     - ansible_facts['product_version'] == "IdeaPad 3 15IIL05"
     - ansible_facts['distribution'] == "Fedora"
-    - '"pci=nocrs" in ( GRUB_CMDLINE_LINUX.stdout )'
+    - '"pci=nocrs" not in ( GRUB_CMDLINE_LINUX.stdout )'
   tags:
     - Fix-KernelBug_207759
 

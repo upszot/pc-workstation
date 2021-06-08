@@ -23,6 +23,7 @@
     - gnupg2
     - policycoreutils
     - "{{ chrome_app_name }}"   #Los repos oficiales se agregan dependiendo del SO
+    - terminator
 
 
 - name: "Instalar paquetes de redes" 
@@ -31,9 +32,9 @@
     name: "{{ item }}"
     state: present
   with_items:
+    - wget
     - tcpdump
     - fail2ban
-
 
 - name: "Instalar paquetes para conectarse escritorios remotos" 
   become: yes

@@ -30,12 +30,6 @@
   when: ansible_facts['distribution'] == "Ubuntu"
 
 
-
-- pause:
-    prompt: "Antes de instalar docker"
-
-
-
 - name: "Instalando docker" 
   become: yes
   package:
