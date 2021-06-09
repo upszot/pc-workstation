@@ -68,8 +68,7 @@
     - add_docker
 
 - name: "Install VirtualBox"
-  include: 013_add_VirtualBox_fedora.yml
-  when: ansible_facts['distribution'] == "Fedora"
+  include: 013_add_VirtualBox.yml
   tags:
     - add_VirtualBox
 

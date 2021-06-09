@@ -77,9 +77,24 @@ ansible-galaxy install -r requirements.yml
 - install_desarrollo	| install developer package
 - compiz	|install and config compiz
 - add_docker	| install and config docker from oficial repo
+- add_VirtualBox	|	install and config from oficial repo, virtualbok and vagrant
+- add_Games	|install games plataforms
 
-* En Proceso de desarrollo:
-	+ Fedora:
-		- add_VirtualBox	|	install and config from oficial repo, virtualbok and vagrant
-	+ Ubuntu
-		- add_Games	|install games plataforms
+
+
+## Funcionalidades en Proceso de desarrollo / Pendientes:
+
+- Fedora:
+	- 
+
+- Ubuntu:
+	-
+
+## Funcionalidades Pendientes:
+
+- Instalacion cliente VPN (cisco)
+- Paquetes multimedia (smplayer, obs)
+- Cliente epic games
+- Emulador para correr apk Android
+- tunear interface grafica (compiz perfiles)
+

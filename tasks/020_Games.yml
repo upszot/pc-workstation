@@ -1,5 +1,9 @@
 ---
 
+- debug:
+    msg: " ---- Installacion Plataformas de juegos ----"
+
+
 - name: "Include 020_Games__fedora"
   include: fedora/020_Games_fedora.yml
   when: ansible_facts['distribution'] == "Fedora"

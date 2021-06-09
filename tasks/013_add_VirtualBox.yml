@@ -1,36 +1,29 @@
 ---
-
 #----------------------------------------#
-# Install y config VirtualBox en fedora
+# Install y config VirtualBox
 #----------------------------------------#
 
+# https://www.virtualbox.org/wiki/Linux_Downloads
 
-- name: "Instalar dependencias " 
+- debug:
+    msg: "---- Agregando VirtualBox  ----"
+
+- name: "Include 013_add_VirtualBox_fedora"
+  include: fedora/013_add_VirtualBox_fedora.yml
+  when: ansible_facts['distribution'] == "Fedora"
+
+- name: "Include 013_add_VirtualBox_ubuntu"
+  include: ubuntu/013_add_VirtualBox_ubuntu.yml
+  when: ansible_facts['distribution'] == "Ubuntu"
+
+- name: "Instalar virtualbox " 
   become: yes
   package:
     name: "{{ item }}"
     state: present
   with_items:
-    - "@development-tools"
-    - kernel-headers
-    - kernel-devel
-    - dkms
-    - elfutils-libelf-devel
-    - qt5-qtx11extras
-
-- name: "add repo oficial VirtualBox"
-  become: yes 
-  shell: dnf config-manager --add-repo http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
-
-- name: "Instalar virtualbox-6 " 
-  become: yes
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - VirtualBox-6.*
-    - virtualbox-guest-additions
-
+    - "{{ VirtualBox_APP }}"
+    - "{{ VIRTUALBOX_GUEST_ADDITIONS }}"
 
 - name: "add group vboxusers"
   ansible.builtin.group:
@@ -43,7 +36,6 @@
     name: "{{ ansible_user_id }}"
     groups: vboxusers
     append: yes
-
 
 - name: "Agregando placas de red en VirtualBox "
   shell: "{{ item }}"

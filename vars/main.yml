@@ -2,7 +2,12 @@
 
 chrome_app_name: google-chrome-stable
 steam_app_deb: steam-launcher
-steam_app_rpm: steam  
+steam_app_rpm: steam
+
+virtualbox_app_deb: virtualbox
+virtualbox_app_rpm: VirtualBox-6.*
+virtualbox_guest_additions_deb: virtualbox-guest-additions-iso
+virtualbox_guest_additions_rpm: virtualbox-guest-additions
 
 
 #------- Comunes entra las distros --------#
@@ -12,7 +17,7 @@ visualStudioCode_repo_filename: vscode
 anydesk_repo_filename: anydesk-stable
 docker_repo_filename: docker
 steam_repo_filename: steam
-
+VirtualBox_repo_filename: virtualbox
 
 #GPG_key
 chrome_gpg_key: "https://dl.google.com/linux/linux_signing_key.pub"
@@ -25,18 +30,23 @@ anydesk_gpg_key_RPM: "https://keys.anydesk.com/repos/RPM-GPG-KEY"
 docker_gpg_key_DEB: "https://download.docker.com/linux/ubuntu/gpg"
 steam_gpg_IDkey_DEB: "B05498B7"
 
+virtualbox_gpg_key_01: "https://www.virtualbox.org/download/oracle_vbox_2016.asc"
+virtualbox_gpg_key_02: "https://www.virtualbox.org/download/oracle_vbox.asc"
+
+
 #------- Ubuntu --------#
 #Variables para debian y derivados
 DEBIAN_GROUP_ADMIN: "sudo"
 DEBIAN_GROUPS_DEFAULS: "cdrom,dip,plugdev,lpadmin,lxd,sambashare"
 
 #Repos 
-chrome_repo_debian:  "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
-sublime_repo_debian: "deb https://download.sublimetext.com/ apt/stable/"
-vscode_repo_debian:  "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-anydesk_repo_debian: "deb http://deb.anydesk.com/ all main"
-docker_repo_debian:  "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-steam_repo_debian: "deb http://repo.steampowered.com/steam/ precise steam"
+chrome_repo_debian:     "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
+sublime_repo_debian:    "deb https://download.sublimetext.com/ apt/stable/"
+vscode_repo_debian:     "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+anydesk_repo_debian:    "deb http://deb.anydesk.com/ all main"
+docker_repo_debian:     "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+VirtualBox_repo_debian: "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian focal contrib"
+steam_repo_debian:      "deb http://repo.steampowered.com/steam/ precise steam"
 
 
 #------- Fedora --------#
