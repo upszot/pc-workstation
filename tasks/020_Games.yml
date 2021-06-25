@@ -18,6 +18,27 @@
                 {% elif ansible_facts['distribution'] == 'Fedora' %} '{{ steam_app_rpm }}'
                 {% endif %}"
 
+# - debug:
+#     msg:
+#       - "{{ EpicGame_URL_APP }}"
+#       - "{{ EpicGame_APP }}"
+
+- name: "Download EpicGame_APP"
+  get_url:
+    url: "{{ EpicGame_URL_APP }}"
+    dest: "/tmp/{{ EpicGame_APP }}"
+
+# - name: "Instalando plataformas de juegos " 
+#   become: yes
+#   apt:
+#     deb: "{{ item }}"
+#     state: present
+#   with_items:
+#     - "/tmp/{{ EpicGame_APP }}"
+#   when: ansible_facts['distribution'] == "Ubuntu"
+# #    - "{{ STEAM_APP }}"
+
+
 - name: "Instalando plataformas de juegos " 
   become: yes
   package:
@@ -25,6 +46,7 @@
     state: present
   with_items:
     - "{{ STEAM_APP }}"
-
+    - "/tmp/{{ EpicGame_APP }}"
+    - lutris
 
 

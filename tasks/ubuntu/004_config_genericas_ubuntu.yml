@@ -1,7 +1,6 @@
 ---
 
 
-
   #update-alternatives --set editor /usr/bin/vim.basic
 # - name: Alternatives link created editor
 #   community.general.alternatives:

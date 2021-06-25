@@ -24,6 +24,9 @@
     - policycoreutils
     - "{{ chrome_app_name }}"   #Los repos oficiales se agregan dependiendo del SO
     - terminator
+    - wmctrl
+    - htop
+    
 
 
 - name: "Instalar paquetes de redes" 
@@ -45,3 +48,15 @@
     - virt-viewer
     - remmina
     - anydesk
+
+- name: "anydesk -silent --restart-service"
+  become: yes
+  shell: "anydesk --silent --restart-service"
+
+- name: "anydesk get_id"
+  shell: "anydesk --get-id"
+  register: ID_ANYDESK
+
+- debug:
+    msg: "ID Anydesk: {{ ID_ANYDESK.stdout }}"
+

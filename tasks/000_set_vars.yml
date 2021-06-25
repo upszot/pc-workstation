@@ -31,4 +31,9 @@
   shell: "ip route |grep default | grep -i dhcp -c "
   register: is_ip_dinamic
 
+- name: "Get USERNAME y HOME con el que se conecto a: {{ ansible_hostname }}"
+  set_fact:
+    USERNAME: "{{ ansible_facts.user_id }}"
+    HOME: "{{ ansible_facts.user_dir }}"
+
 

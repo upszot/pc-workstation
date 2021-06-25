@@ -1,5 +1,9 @@
 ---
 
+- name: "Set EpicGame vars"
+  set_fact:
+    EpicGame_URL_APP: "{{ EpicGame_URL}}{{ EpicGame_app_rpm }}"
+    EpicGame_APP: "{{ EpicGame_app_rpm | basename }}"
 
 - name: "add repo rpmfusion" 
   become: yes

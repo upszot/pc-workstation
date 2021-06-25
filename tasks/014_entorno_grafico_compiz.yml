@@ -18,13 +18,13 @@
 - name: "Copy script import config compiz"
   copy:
     src: "GUI/compiz_config.py"
-    dest: "{{ ansible_env.HOME }}/scipts/"
+    dest: "{{ HOME }}/scipts/"
     mode: '0755'
    
 - name: "Copy config profile for compiz"
   copy:
     src: "GUI/Compiz_profiles"
-    dest: "{{ ansible_env.HOME }}/"
+    dest: "{{ HOME }}/"
 
 
 #https://askubuntu.com/questions/244333/compiz-profile-settings-export-and-import-using-command-line

@@ -3,7 +3,7 @@
 - debug:
     msg: " ---- Creacion de usuarios ----"
 
-- name: Set USERNAME
+- name: "Get USERNAME local "
   set_fact:
     USERNAME: "{{ lookup('env','USER') }}"
     

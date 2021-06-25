@@ -2,3 +2,4 @@ tests/.vagrant
 logs/*.retry
 tests/*.retry
 logs/*.log
+_git-ignore

@@ -2,7 +2,6 @@
 - debug:
     msg: "---- Realizando Configuraciones genericas  ----"
 
-
 - name: "Realiza configuraciones genericas"
   include: fedora/004_config_genericas_fedora.yml
   when: ansible_facts['distribution'] == "Fedora"
@@ -47,14 +46,3 @@
   ignore_errors: yes
 
 
-#--------- Obtencion del Home del usuario remoto ------#
-# - name: get ansible_user home directory
-#   become: yes
-#   shell: "getent passwd {{ ansible_user }}  | awk -F: '{ print $6 }'"
-#   changed_when: false
-#   register: user_home
-
-# - name: Set HOME
-#   set_fact:
-#     HOME: "{{ HOME.stdout }}"
-#-------------------------------------------------------#

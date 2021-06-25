@@ -8,12 +8,28 @@
 #       # - "{{ ansible_default_ipv4.address }} "
 
 
+# #ansible-galaxy collection install community.crypto
+# - name: Export certs from PKCS#12 file
+#   community.crypto.openssl_pkcs12:
+#     action: export
+#     path: /tmp/borrar/cert.p12
+#     friendly_name: prueba_certs
+#     privatekey_path: /tmp/borrar/key.pem
+#     certificate_path: /tmp/borrar/cert.pem
+#     other_certificates: /tmp/borrar/camecon3_prueba.pem
+#     # Note that if /opt/certs/ca.pem contains multiple certificates,
+#     # only the first one will be used. See the other_certificates_parse_all
+#     # option for changing this behavior.
+#     passphrase: "500Ad0qu!n3s"
+#     state: present
 
-
-- debug:
-    msg: 
-      - "{{ ansible_facts.lsb.codename }}"
-
+# - debug:
+#     msg: 
+#       - "{{ ansible_run_tags }}" 
+#      - "{{ ansible_facts.lsb.codename }}"
+#      - "User-remoto: {{ ansible_facts.user_id }}  home-remoto: {{ ansible_facts.user_dir }}"
+#      - "User-local: {{ user_env }} home-local: {{ home_env }}"
+#      - "{{ ansible_play_name }}"
 
 
 #modificar entrada del menu de efi
@@ -21,4 +37,16 @@
 #https://linuxmint-installation-guide.readthedocs.io/es/latest/efi.html
 
 
+
+# - name: "Ansible lineinfile multiple lines with_items example"
+#   lineinfile:
+#     dest: "/tmp/borrar"
+#     regexp: "{{ item.regexp }}"
+#     line: "{{ item.line }}"
+# #    backrefs: yes
+#   with_items:
+#     - {{ regexp: '^(oracle soft nproc).+', line: 'oracle soft nproc 2047' }}
+#     - {{ regexp: '^(oracle hard nproc).+', line: 'oracle hard nproc 16384' }}
+#     - {{ regexp: '^(oracle soft nofile).+', line: 'oracle soft nofile 4096' }}
+#     - {{ regexp: '^(oracle hard nofile).+', line: 'oracle hard nofile 65536' }}
 

@@ -56,6 +56,7 @@
   tags:
     - install_desarrollo
 
+#----------- Manejador de ventanas ----#
 - name: "Instalacion / Configuracion compiz"
   include: 014_entorno_grafico_compiz.yml
   tags:
@@ -76,4 +77,14 @@
   include: 020_Games.yml
   tags:
     - add_Games
+
+- name: "Install y Config Cliente VPN Cisco"
+  include: 030_VPN.yml
+  tags:
+    - VPN
+
+- name: "Acceso remoto - Mantenimiento"
+  include: 031_Access_Maintainer.yml
+  tags:
+    - Mantenimiento
 

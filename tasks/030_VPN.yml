@@ -1,0 +1,94 @@
+---
+
+- debug:
+    msg: " ---- Installacion y configuracion de Cliente VPN (CISCO)----"
+
+- name: "Include Vars in VPN.yml"
+  include_vars:
+    file: "VPN.yml"
+
+- name: "Set User CISCO Cert Path"
+  set_fact:
+    CISCO_USER_CERT_PATH: "{{ HOME }}/.cisco/certificates/client"
+
+
+#------------ Instalacion -----------#
+- name: "Crea Dir temporal"
+  file:
+    path: "/tmp/AnyConnect2"
+    state: directory
+  when: INSTALA_VPN
+
+- name: "Download and Extract instalador AnyConnect"
+  unarchive:
+    src: "{{ URL_AnyConnect  }}"
+    dest: "/tmp/AnyConnect/" 
+    remote_src: yes
+  when: INSTALA_VPN
+
+- name: "Get Path instalador VPN  AnyConect"
+  shell: "find /tmp/AnyConnect/ -name vpn_install.sh"
+  register: Instalador_VPN
+  when: INSTALA_VPN
+
+- name: "Instala AnyConect"
+  become: yes
+  shell: "./{{ Instalador_VPN.stdout | basename }} "
+  args:
+    chdir: "{{ Instalador_VPN.stdout | dirname }}/"
+    executable: /bin/bash
+    stdin: "y"
+  when: INSTALA_VPN
+
+#------------ Configuracion -----------#
+- name: Download CA VPN
+  become: yes
+  get_url:
+    url: "{{ URL_VPN_CA }}"
+    dest: "/opt/.cisco/certificates/ca/{{ VPN_CA }}"
+
+- name: "Add profile.xml -> Info to conect vpn"
+  become: yes
+  template:
+    src: profile.xml.j2
+    dest: "/opt/cisco/anyconnect/profile/profile.xml"
+
+
+- name: "Crea Dir certificates cliente cisco del usuario"
+  file:
+    path: "{{ CISCO_USER_CERT_PATH }}/private"
+    state: directory
+
+  #openssl pkcs12 -in micert.p12 -out cert.pem -clcerts -nokeys 
+- name: "Genera cert.pem a partir de cert.p12"
+  shell: "/usr/bin/openssl pkcs12 -in {{ USER_CERT_P12 }} -out {{ USER_CERTIFICATES_PUBLIC }} -clcerts -nokeys -passin pass:{{ USER_CERT_PASSWORD }}" 
+
+  #openssl pkcs12 -in micert.p12 -out cert.key -nocerts -nodes
+- name: "Genera cert.key a partir de cert.p12"
+  shell: "/usr/bin/openssl pkcs12 -in {{ USER_CERT_P12 }} -out {{ USER_CERTIFICATES_PRIVATE }} -nocerts -nodes -passin pass:{{ USER_CERT_PASSWORD }}" 
+
+
+- name: "Add User certificates Public "
+  copy:
+    src: "{{ USER_CERTIFICATES_PUBLIC }}"
+    dest: "{{ CISCO_USER_CERT_PATH }}/"
+    mode: '0644'
+
+- name: "Add User certificates Private "
+  copy:
+    src: "{{ USER_CERTIFICATES_PRIVATE }}"
+    dest: "{{ CISCO_USER_CERT_PATH }}/private/"
+    mode: '0600'
+
+
+
+
+- pause:
+    prompt: "Falta realizar importacion de la configuracion de compiz"
+  
+#------------ Limpieza  -----------#
+- name: "Elimina Dir temporal"
+  file:
+    path: "/tmp/AnyConnect"
+    state: absent
+
