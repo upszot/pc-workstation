@@ -65,31 +65,30 @@ ansible-playbook -i tests/test_inventory tests/test_playbook.yml
 
 ## Informacion de Tags:
 
-| Tags                  | Description 																									| standard run 		|
-| ------                | ------ 																												| ------ 					|
-| host_config	        	| set hostname + config hosts 																	| 								|
-| user_config	        	| create user equal origin host 																| specifying only	|
-| install_genericos	    | install generic package 																			| 								|
-| config_genericos	    | generic config (vim as default editor) 												| 								|
-| Fix-KernelBug_207759  | fix touchpad 																									| 								|
-| install_desarrollo		| install developer package 																		| 								|
-| compiz	            	| install and config compiz 																		| 								|
-| add_docker	        	| install and config docker from oficial repo 									| 								|
-| add_VirtualBox	    	| install and config from oficial repo, virtualbok and vagrant 	| 								|
-| add_Games	            | install games plataforms 																			| 								|
-| VPN	                	| install and config Anyconnect (vpn cisco) 										| 								|
+| Tags 			| Description 							| standard run 		|
+| ------                | ------ 							| ------ 		|
+| host_config		| set hostname + config hosts					| 			|
+| user_config      	| create user equal origin host					| specifying only	|
+| install_genericos	| install generic package					| 			|
+| config_genericos 	| generic config (vim as default editor) 			| 			|
+| Fix-KernelBug_207759  | fix touchpad 							| 			|
+| install_desarrollo	| install developer package 					| 			|
+| compiz	        | install and config compiz 					| 			|
+| add_docker	        | install and config docker from oficial repo			| 			|
+| add_VirtualBox	| install and config from oficial repo, virtualbok and vagrant 	| 			|
+| add_Games	        | install games plataforms 					| 			|
+| VPN	                | install and config Anyconnect (vpn cisco) 			| 			|
 
 
 ## Funcionalidades en Proceso de desarrollo / Pendientes:
 
-| Tags 			| Descriptions 												| State  -> 											| Ubuntu 	| Fedora  |
-| ------ 		| ------ 															|------ 													| ------ 	| ------ 	|
-| add_Games | instalacion plataformas de juegos 	| Cliente epic games (no-oficial) | Testing	| No Test |
-|	VPN				|	Instalacion cliente VPN (cisco)			|																	|					|	Tested	|
-|	compiz		|	Import compiz config perfiles				|	pending development							|					|					|
-|						|	Paquetes multimedia (smplayer, obs)	|	pending development							|					|					|
-|						|	Emulador para correr apk Android		|	pending development							|					|					|
-|						|																			|																	|					|					|
+| Tags 		| Descriptions 				| State  -> 				| Ubuntu 	| Fedora  	|
+| ------ 	| ------ 				|------ 				| ------ 	| ------ 	|
+| add_Games 	| instalacion plataformas de juegos 	| Cliente epic games (no-oficial)	| Testing	| No Test	|
+| VPN		| Instalacion cliente VPN (cisco)	|					|		| Tested 	|
+| compiz	| Import compiz config perfiles		| pending development			|		|		|
+|		| Paquetes multimedia (smplayer, obs)	| pending development			|		|		|
+|		|	Emulador para correr apk Android| pending development			|		|		|		
 
 
 
