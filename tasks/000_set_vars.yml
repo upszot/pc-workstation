@@ -20,16 +20,14 @@
 
 #----------- Generales ---------------------#
 
-# - name: "Conocer si tiene ip dinamica"
-#   become: yes
-#   shell: "ip addr show |grep {{ ansible_default_ipv4.address }} | grep -i dynamic -c "
-#   register: is_ip_dinamic
 
-
-- name: "Conocer si tiene ip dinamica"
-  become: yes
-  shell: "ip route |grep default | grep -i dhcp -c "
-  register: is_ip_dinamic
+- name: "Get IP type (dinamic or static)"
+  shell: (ip route |grep default | grep -i dhcp -c  |awk '{ if ($0 == 1) print "DHCP";  else if ($0 == 0) print "STATIC"; } ' )
+  register: command_result
+ 
+- name: "Set Net type"
+  set_fact:
+    NET_TYPE: "{{ command_result.stdout }}"
 
 - name: "Get USERNAME y HOME con el que se conecto a: {{ ansible_hostname }}"
   set_fact:
