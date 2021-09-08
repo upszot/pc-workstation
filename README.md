@@ -1,4 +1,4 @@
-# pc-workstation
+# pc-workstation [img1]: tux_ninja.png
 
 Role de ansible para aprovisionar y configurar workstation.
 
