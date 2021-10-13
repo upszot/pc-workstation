@@ -1,5 +1,9 @@
-# pc-workstation [img1]: tux_ninja.png
-
+# pc-workstation  
+	   
+<p>
+  <img src="./tux_ninja.png" width="150" align="left" >
+</p>
+	
 Role de ansible para aprovisionar y configurar workstation.
 
 	- Crea usuario con el mismo nombre y password que el usuario de local host
