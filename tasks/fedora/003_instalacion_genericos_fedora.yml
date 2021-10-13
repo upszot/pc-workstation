@@ -1,20 +1,15 @@
 ---
 
-- debug:
-    msg: "---- Instalacion de paquetes  ----"
-
 - name: "Instalar paquetes basicos" 
   become: yes
   package:
     name: "{{ item }}"
     state: present
   with_items:
-    - ca-certificates
-    - curl
-    - vim
-    - gnupg2
-    - fedora-workstation-repositories
+    - fedora-workstation-repositories #fedora
     - dnf-plugins-core
+
+
     
 - name: Instalo google-chrome desde el repo de google
   become: yes
@@ -24,13 +19,15 @@
     state: present
 
 
-- name: "Instalar paquetes de redes" 
+- name: "Add repositories AnyDesk"
   become: yes
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - tcpdump
-    - fail2ban
+  yum_repository:
+    file: "{{ anydesk_repo_filename }}.repo"
+    name: anydesk
+    description: AnyDesk
+    baseurl: http://rpm.anydesk.com/fedora/$basearch/
+    enabled: 1
+    gpgcheck: yes
+    gpgkey: "{{ anydesk_gpg_key_RPM }}"
 
-    
+

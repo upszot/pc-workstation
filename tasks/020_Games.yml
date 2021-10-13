@@ -1,0 +1,52 @@
+---
+
+- debug:
+    msg: " ---- Installacion Plataformas de juegos ----"
+
+
+- name: "Include 020_Games__fedora"
+  include: fedora/020_Games_fedora.yml
+  when: ansible_facts['distribution'] == "Fedora"
+
+- name: "Include 020_Games_ubuntu.yml"
+  include: ubuntu/020_Games_ubuntu.yml
+  when: ansible_facts['distribution'] == "Ubuntu"
+
+- name: "Set STEAM_APP"
+  set_fact:
+    STEAM_APP: "{% if   ansible_facts['distribution'] == 'Ubuntu' %} '{{ steam_app_deb }}' 
+                {% elif ansible_facts['distribution'] == 'Fedora' %} '{{ steam_app_rpm }}'
+                {% endif %}"
+
+# - debug:
+#     msg:
+#       - "{{ EpicGame_URL_APP }}"
+#       - "{{ EpicGame_APP }}"
+
+- name: "Download EpicGame_APP"
+  get_url:
+    url: "{{ EpicGame_URL_APP }}"
+    dest: "/tmp/{{ EpicGame_APP }}"
+
+# - name: "Instalando plataformas de juegos " 
+#   become: yes
+#   apt:
+#     deb: "{{ item }}"
+#     state: present
+#   with_items:
+#     - "/tmp/{{ EpicGame_APP }}"
+#   when: ansible_facts['distribution'] == "Ubuntu"
+# #    - "{{ STEAM_APP }}"
+
+
+- name: "Instalando plataformas de juegos " 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ STEAM_APP }}"
+    - "/tmp/{{ EpicGame_APP }}"
+    - lutris
+
+

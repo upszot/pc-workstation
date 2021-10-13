@@ -1,0 +1,13 @@
+---
+
+- name: "add repo oficial de docker"
+  become: yes 
+  shell: dnf config-manager  --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+
+#Desde fedora 30 si no se agrega no levantaba docker..
+- name: Update Grub default config
+  become: yes 
+  shell: grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0" 
+
+
+

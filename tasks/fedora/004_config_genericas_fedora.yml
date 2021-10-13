@@ -1,0 +1,46 @@
+---
+
+
+- name: "Quitar nano como editor por defecto" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - nano-default-editor
+
+- name: "Agregar vim como editor por defecto" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - vim-default-editor
+
+- name: Put SELinux in permissive mode, logging actions that would be blocked.
+  become: yes
+  ansible.posix.selinux:
+    policy: targeted
+    state: permissive
+  when: ansible_facts['distribution'] == "Fedora"
+  
+#--------------- Deshabilito dnfdragora para que no moleste --------#
+
+- name: "copio autostart de dnfdragora-updater para luego deshabilitarlo"
+  copy:
+    src: "{{ item }}"
+    dest: "{{ HOME }}/.config/autostart/"
+  with_items:
+    - /etc/xdg/autostart/org.mageia.dnfdragora-updater.desktop
+
+- name: "deshabilita dnfdragora-updater"
+  #become: yes
+  lineinfile:
+    dest: "{{ HOME }}/.config/autostart/org.mageia.dnfdragora-updater.desktop"
+    line: 'Hidden=true'
+    state: present
+
+- name: "killall dnfdragora-updater"
+  become: yes
+  shell: killall dnfdragora-updater
+  ignore_errors: yes

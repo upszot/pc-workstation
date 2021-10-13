@@ -21,10 +21,14 @@
     - docker-engine
 
 
+- name: "Include Instalacion paquetes desarrollo"
+  include: fedora/012_add_docker_fedora.yml
+  when: ansible_facts['distribution'] == "Fedora"
 
-- name: "add repo oficial de docker"
-  become: yes 
-  shell: dnf config-manager  --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+- name: "Include Instalacion paquetes desarrollo"
+  include: ubuntu/012_add_docker_ubuntu.yml
+  when: ansible_facts['distribution'] == "Ubuntu"
+
 
 - name: "Instalando docker" 
   become: yes
@@ -36,10 +40,6 @@
     - docker-ce-cli
     - containerd.io
     - docker-compose
-
-- name: Update Grub default config
-  become: yes 
-  shell: grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0" 
 
 - name: "Adding user: {{ ansible_user_id }} to grups docker"
   become: yes
@@ -54,3 +54,4 @@
     name: docker
     state: restarted
     enabled: yes
+

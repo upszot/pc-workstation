@@ -1,0 +1,48 @@
+---
+- debug:
+    msg: "---- Realizando Configuraciones genericas  ----"
+
+- name: "Realiza configuraciones genericas"
+  include: fedora/004_config_genericas_fedora.yml
+  when: ansible_facts['distribution'] == "Fedora"
+  tags:
+    - config_genericos
+
+- name: "Realiza configuraciones genericas"
+  include: ubuntu/004_config_genericas_ubuntu.yml
+  when: ansible_facts['distribution'] == "Ubuntu"
+  tags:
+    - config_genericos
+
+- name: "add NOPASSWD in sudores for group {{ GROUP_ADMIN }}"
+  become: yes
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: '^%{{ GROUP_ADMIN }}'
+    line: '%{{ GROUP_ADMIN }} ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+
+- name: "Upload alias generales"
+  become: yes
+  copy:
+    src: "{{ item }}"
+    dest: /etc/profile.d/
+    owner: root
+    group: root
+    #mode: 0755
+  with_items:
+    - 00-aliases.sh
+
+- name: Disable firewalld or iptable
+  become: yes
+  ansible.builtin.service:
+    name: "{{ item}}"
+    enabled: no
+    state: stopped
+  with_items:
+    - iptables
+    - firewalld
+  ignore_errors: yes
+
+

@@ -1,0 +1,10 @@
+---
+
+- name: "Instalar paquetes para importar configuracion de compiz" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - compizconfig-python #(validado en fedora)
+
