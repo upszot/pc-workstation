@@ -1,31 +1,28 @@
 # pc-workstation  
+
 <div>	   
-<table>
+<table >
   <tr>
-<<<<<<< HEAD
-    <td><img src="./tux_ninja.png" width="150" align="left" border=0px></td>
-=======
     <td><img src="./tux_ninja.png" width="150" align="left" ></td>
->>>>>>> ea08baf1489ec19bdf897f2e3d8ac67bf7101c5b
     <td>Rol de ansible para aprovisionar y configurar workstation.</td>
   </tr>		
 </table>
 </div>
-	
-	- Crea usuario con el mismo nombre y password que el usuario de local host
-	- Cruza key ssh del mismo
 
-	- Setea vim como editor por defecto
-	- configura sudo para que no pida password
-	- Fix-KernelBug_207759 (Touchpad)
-	- Instala Paquetes basicos
-	- Instala paquetes para desarrollo
-	- Instala docker y docker-compose
-	- instala y configura virtualbox y vagrant
-	- Instala plataformas de juegos 
-	- Instala y configura AnyConnect (VPN Cisco Client)
+## Tareas que realiza
+- Crea usuario con el mismo nombre y password que el usuario de local host
+- Cruza key ssh del mismo
+- Setea vim como editor por defecto
+- configura sudo para que no pida password
+- Fix-KernelBug_207759 (Touchpad)
+- Instala Paquetes basicos
+- Instala paquetes para desarrollo
+- Instala docker y docker-compose
+- instala y configura virtualbox y vagrant
+- Instala plataformas de juegos 
+- Instala y configura AnyConnect (VPN Cisco Client)
 
-Plataformas testeadas:
+## Plataformas testeadas:
 - [X] Fedora-Mate-33
 - [X] Fedora-Mate-34
 - [X] Ubuntu-Mate-20.04.1-LTS
