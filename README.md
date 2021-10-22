@@ -1,8 +1,9 @@
 # pc-workstation  
-	   
+<div>	   
 <p>
   <img src="./tux_ninja.png" width="150" align="left" >
 </p>
+</div>
 	
 Rol de ansible para aprovisionar y configurar workstation.
 
