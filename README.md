@@ -2,7 +2,7 @@
 <div>	   
 <table>
   <tr>
-    <td><img src="./tux_ninja.png" width="150" align="left" ></td>
+    <td><img src="./tux_ninja.png" width="150" align="left" border=0px></td>
     <td>Rol de ansible para aprovisionar y configurar workstation.</td>
   </tr>		
 </table>
