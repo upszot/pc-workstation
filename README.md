@@ -1,12 +1,13 @@
 # pc-workstation  
 <div>	   
-<p>
-  <img src="./tux_ninja.png" width="150" align="left" >
-</p>
+<table>
+  <tr>
+    <td><img src="./tux_ninja.png" width="150" align="left" ></td>
+    <td>Rol de ansible para aprovisionar y configurar workstation.</td>
+  </tr>		
+</table>
 </div>
 	
-Rol de ansible para aprovisionar y configurar workstation.
-
 	- Crea usuario con el mismo nombre y password que el usuario de local host
 	- Cruza key ssh del mismo
 
