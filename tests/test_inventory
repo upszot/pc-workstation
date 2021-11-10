@@ -9,3 +9,6 @@ cetus
 
 [Laburo]
 pc-laburo
+
+[SO_UTN]
+127.0.0.1 ansible_connection=local
