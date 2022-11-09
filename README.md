@@ -70,6 +70,14 @@ ansible-playbook -i tests/test_inventory tests/test_playbook.yml -u UsuarioHabil
 ansible-playbook -i tests/test_inventory tests/test_playbook.yml 
 ```
 
+### UTN_SO 
+ - Instala solo docker en localhost
+ - Pide password de sudo 
+```sh
+ansible-playbook -i tests/test_inventory tests/test_playbook.yml  -t add_docker -l SO_UTN -K
+```
+
+
 ## Informacion de Tags:
 
 | Tags 			| Description 							| standard run 		|
