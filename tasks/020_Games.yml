@@ -5,11 +5,11 @@
 
 
 - name: "Include 020_Games__fedora"
-  include: fedora/020_Games_fedora.yml
+  include_tasks: fedora/020_Games_fedora.yml
   when: ansible_facts['distribution'] == "Fedora"
 
 - name: "Include 020_Games_ubuntu.yml"
-  include: ubuntu/020_Games_ubuntu.yml
+  include_tasks: ubuntu/020_Games_ubuntu.yml
   when: ansible_facts['distribution'] == "Ubuntu"
 
 - name: "Set STEAM_APP"

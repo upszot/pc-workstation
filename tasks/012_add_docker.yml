@@ -22,11 +22,11 @@
 
 
 - name: "Include Instalacion paquetes desarrollo"
-  include: fedora/012_add_docker_fedora.yml
+  include_tasks: fedora/012_add_docker_fedora.yml
   when: ansible_facts['distribution'] == "Fedora"
 
 - name: "Include Instalacion paquetes desarrollo"
-  include: ubuntu/012_add_docker_ubuntu.yml
+  include_tasks: ubuntu/012_add_docker_ubuntu.yml
   when: ansible_facts['distribution'] == "Ubuntu"
 
 

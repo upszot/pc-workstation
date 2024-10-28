@@ -3,13 +3,13 @@
     msg: "---- Realizando Configuraciones genericas  ----"
 
 - name: "Realiza configuraciones genericas"
-  include: fedora/004_config_genericas_fedora.yml
+  include_tasks: fedora/004_config_genericas_fedora.yml
   when: ansible_facts['distribution'] == "Fedora"
   tags:
     - config_genericos
 
 - name: "Realiza configuraciones genericas"
-  include: ubuntu/004_config_genericas_ubuntu.yml
+  include_tasks: ubuntu/004_config_genericas_ubuntu.yml
   when: ansible_facts['distribution'] == "Ubuntu"
   tags:
     - config_genericos

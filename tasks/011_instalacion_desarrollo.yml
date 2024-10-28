@@ -4,11 +4,11 @@
     msg: " ---- installacion_desarrollo ----"
 
 - name: "Include Instalacion paquetes desarrollo"
-  include: fedora/011_instalacion_desarrollo_fedora.yml
+  include_tasks: fedora/011_instalacion_desarrollo_fedora.yml
   when: ansible_facts['distribution'] == "Fedora"
 
 - name: "Include Instalacion paquetes desarrollo"
-  include: ubuntu/011_instalacion_desarrollo_ubuntu.yml
+  include_tasks: ubuntu/011_instalacion_desarrollo_ubuntu.yml
   when: ansible_facts['distribution'] == "Ubuntu"
 
 - name: "Instalar paquetes para programar" 

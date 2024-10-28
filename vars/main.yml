@@ -44,8 +44,8 @@ chrome_repo_debian:     "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/
 sublime_repo_debian:    "deb https://download.sublimetext.com/ apt/stable/"
 vscode_repo_debian:     "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
 anydesk_repo_debian:    "deb http://deb.anydesk.com/ all main"
-docker_repo_debian:     "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-VirtualBox_repo_debian: "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian focal contrib"
+docker_repo_debian:     "deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable"
+VirtualBox_repo_debian: "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian jammy contrib"
 steam_repo_debian:      "deb http://repo.steampowered.com/steam/ precise steam"
 
 
