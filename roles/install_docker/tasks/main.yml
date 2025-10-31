@@ -1,0 +1,57 @@
+---
+# tasks file for roles/install_docker
+
+- debug:
+    msg: "---- Agregando Docker  ----"
+
+- name: "Quito paquetes docker viejos" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - docker
+    - docker-client
+    - docker-client-latest
+    - docker-common
+    - docker-latest
+    - docker-latest-logrotate
+    - docker-logrotate
+    - docker-selinux
+    - docker-engine-selinux
+    - docker-engine
+  ignore_errors: true
+
+- name: "Include Repos"
+  include_tasks: "{{ ansible_facts['distribution'] }}/add_Repo.yml"
+
+
+
+- name: "Instalando docker" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+    - docker-buildx-plugin
+    - docker-compose-plugin
+
+
+- name: "Adding user: {{ ansible_user_id }} to grups docker"
+  become: yes
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: yes
+
+- name: Restart service docker
+  become: yes
+  service:
+    name: docker
+    state: restarted
+    enabled: yes
+
+

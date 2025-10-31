@@ -1,0 +1,37 @@
+---
+
+#----------------------------------------#
+# Install y config VirtualBox en ubuntu
+#----------------------------------------#
+
+- name: Debian/Ubuntu Family | Add gpg signing key for virtualbox
+  become: yes
+  apt_key:
+    url: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ virtualbox_gpg_key_01 }}"
+    - "{{ virtualbox_gpg_key_02 }}"
+
+- name: Definir el repositorio de VirtualBox dinámicamente
+  set_fact:
+    VirtualBox_repo_debian: "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian {{ ansible_distribution_release }} contrib"
+
+- name: Mostrar la variable definida
+  debug:
+    msg: "El repositorio de VirtualBox es: {{ VirtualBox_repo_debian }}"
+      
+- name: "Debian/Ubuntu Family | Adding repository VirtualBox"
+  become: yes
+  apt_repository:
+    repo: "{{ VirtualBox_repo_debian }}"
+    filename: "{{ VirtualBox_repo_filename }}"
+    state: present
+    update_cache: yes
+
+
+- name: "Set VirtualBox APP - Ubuntu"
+  set_fact:
+    VirtualBox_APP: "{{ virtualbox_app_deb }}"
+    VIRTUALBOX_GUEST_ADDITIONS: "{{ virtualbox_guest_additions_deb }}"
+

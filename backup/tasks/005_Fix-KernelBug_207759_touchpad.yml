@@ -1,0 +1,60 @@
+---
+
+#-------------- Bug kernel Touchpad ---------#
+  # when: 
+  #   - ansible_facts['system_vendor'] == "LENOVO"
+  #   - ansible_facts['product_version'] == "IdeaPad 3 15IIL05"
+
+  #https://bugzilla.kernel.org/show_bug.cgi?id=207759
+  #https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1884997
+  #https://bugzilla.redhat.com/show_bug.cgi?id=1868899
+
+  #Solution: ->  GRUB_CMDLINE_LINUX_DEFAULT="pci=nocrs quiet"
+#---------------------------------------------#
+
+- name: get GRUB_CMDLINE_LINUX
+  shell: "grep  GRUB_CMDLINE_LINUX /etc/default/grub"
+  register: GRUB_CMDLINE_LINUX
+  check_mode: no
+  when: 
+    - ansible_facts['system_vendor'] == "LENOVO"
+    - ansible_facts['product_version'] == "IdeaPad 3 15IIL05"
+  tags:
+    - Fix-KernelBug_207759
+
+- name: "Add Option pci=nocrs en grub default (bugzilla.kernel=207759)"
+  become: true
+  replace:
+    path: /etc/default/grub
+    regexp: ^(GRUB_CMDLINE_LINUX=".*)"
+    replace: '\g<1> pci=nocrs "'
+  when: 
+    - ansible_facts['system_vendor'] == "LENOVO"
+    - ansible_facts['product_version'] == "IdeaPad 3 15IIL05"
+    - '"pci=nocrs" not in ( GRUB_CMDLINE_LINUX.stdout )'
+  tags:
+    - Fix-KernelBug_207759
+
+- name: "Regenerar grub.cfg - (Family= Debian) "
+  become: true
+  shell: 'update-grub2'
+  when: 
+    - ansible_facts['system_vendor'] == "LENOVO"
+    - ansible_facts['product_version'] == "IdeaPad 3 15IIL05"
+    - ansible_facts['distribution'] == "Ubuntu"
+    - '"pci=nocrs" not in ( GRUB_CMDLINE_LINUX.stdout )'
+  tags:
+    - Fix-KernelBug_207759
+
+
+- name: "Regenerar grub.cfg - (Family= RedHat)"
+  become: true
+  shell: 'grub2-mkconfig -o /boot/grub2/grub.cfg'
+  when: 
+    - ansible_facts['system_vendor'] == "LENOVO"
+    - ansible_facts['product_version'] == "IdeaPad 3 15IIL05"
+    - ansible_facts['distribution'] == "Fedora"
+    - '"pci=nocrs" not in ( GRUB_CMDLINE_LINUX.stdout )'
+  tags:
+    - Fix-KernelBug_207759
+

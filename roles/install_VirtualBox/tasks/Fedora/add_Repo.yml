@@ -1,0 +1,52 @@
+---
+
+#----------------------------------------#
+# Install y config VirtualBox en fedora
+#----------------------------------------#
+
+
+- name: "Instalar dependencias " 
+  become: true
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "@development-tools"
+    - kernel-headers
+    - kernel-devel
+    - dkms
+    - elfutils-libelf-devel
+    - qt5-qtx11extras
+
+# - name: "add repo oficial VirtualBox"
+#   become: yes 
+#   shell: dnf config-manager addrepo --from-repofile=http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
+
+
+# Tarea de GPG anterior
+# - name: Importar clave GPG de VirtualBox
+#   become: true
+#   ansible.builtin.rpm_key:
+#     state: present
+#     key: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+
+- name: Agregar Repositorio de VirtualBox para Fedora
+  become: true
+  ansible.builtin.yum_repository:
+    name: virtualbox
+    description: Fedora {{ ansible_facts['distribution_major_version'] }} - {{ ansible_facts['architecture'] }} - VirtualBox
+    baseurl: http://download.virtualbox.org/virtualbox/rpm/fedora/$releasever/$basearch
+    enabled: 1
+    gpgcheck: 0
+    repo_gpgcheck: 0
+    gpgkey: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+    # Opcional: Especificar el nombre del archivo si es diferente a 'virtualbox.repo'
+    # file: virtualbox
+
+
+
+- name: "Set VirtualBox APP - Fedora"
+  set_fact:
+    VirtualBox_APP: "{{ virtualbox_app_rpm }}"
+    VIRTUALBOX_GUEST_ADDITIONS: "{{ virtualbox_guest_additions_rpm }}"
+

@@ -1,0 +1,33 @@
+---
+
+- name: "Instalar paquetes basicos" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - fedora-workstation-repositories #fedora
+    - dnf-plugins-core
+
+
+    
+- name: Instalo google-chrome desde el repo de google
+  become: yes
+  dnf:
+    name: google-chrome-stable
+    enablerepo: google-chrome
+    state: present
+
+
+- name: "Add repositories AnyDesk"
+  become: yes
+  yum_repository:
+    file: "{{ anydesk_repo_filename }}.repo"
+    name: anydesk
+    description: AnyDesk
+    baseurl: http://rpm.anydesk.com/fedora/$basearch/
+    enabled: 1
+    gpgcheck: yes
+    gpgkey: "{{ anydesk_gpg_key_RPM }}"
+
+

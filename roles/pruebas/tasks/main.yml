@@ -1,0 +1,26 @@
+---
+# tasks file for roles/pruebas
+
+# - debug:
+#     msg: 
+#       - "Imprimo variable leida de group_vars all: {{ DEBIAN_GROUP_ADMIN }} "
+
+- name: "Get IP type (dinamic or static)"
+  become: yes
+  shell: (ip route |grep default | grep -i dhcp -c  |awk '{ if ($0 == 1) print "DHCP";  else if ($0 == 0) print "STATIC"; } ' )
+  register: command_result
+ 
+- name: "Set Net type"
+  set_fact:
+    NET_TYPE: "{{ command_result.stdout }}"
+
+
+- debug:
+    msg: 
+      - "El Tipo de IP es: {{ NET_TYPE }} "
+
+- name: "mensaje"
+  debug:
+    msg:
+      - "Agregar ip en /etc/hosts "
+  when: NET_TYPE == 'STATIC' 

@@ -1,0 +1,25 @@
+---
+# tasks file for instalacion_desarrollo
+
+- debug:
+    msg: " ---- installacion_desarrollo ----"
+
+
+- name: "Include Repos"
+  include_tasks: "{{ ansible_facts['distribution'] }}/add_Repo.yml"
+
+
+- name: "Instalar paquetes para programar" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - git
+    - ansible
+    - codeblocks
+    # - sublime-text  #Previamente se agrego Repo de acuerdo a la distro
+    - code          #Previamente se agrego Repo de acuerdo a la distro
+
+
+

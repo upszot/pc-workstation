@@ -1,0 +1,27 @@
+---
+
+- debug:
+    msg: " ---- installacion_desarrollo ----"
+
+- name: "Include Instalacion paquetes desarrollo"
+  include_tasks: fedora/011_instalacion_desarrollo_fedora.yml
+  when: ansible_facts['distribution'] == "Fedora"
+
+- name: "Include Instalacion paquetes desarrollo"
+  include_tasks: ubuntu/011_instalacion_desarrollo_ubuntu.yml
+  when: ansible_facts['distribution'] == "Ubuntu"
+
+- name: "Instalar paquetes para programar" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - git
+    - ansible
+    - codeblocks
+    - sublime-text  #Previamente se agrego Repo de acuerdo a la distro
+    - code          #Previamente se agrego Repo de acuerdo a la distro
+
+
+

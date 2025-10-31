@@ -1,0 +1,27 @@
+---
+
+# - name: "add repo oficial sublime"
+#   become: yes 
+#   shell: "dnf config-manager addrepo --from-repofile=https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo"
+
+- name: "Add repo oficial sublime (usando yum_repository)"
+  become: yes
+  ansible.builtin.yum_repository:
+    name: sublime-text
+    description: Sublime Text Editor
+    baseurl: https://download.sublimetext.com/rpm/stable/x86_64/
+    gpgcheck: yes
+    repo_gpgcheck: yes
+    gpgkey: https://download.sublimetext.com/sublimehq-pub.gpg
+    enabled: 1
+
+- name: "Add repositories Visual Studio Code"
+  become: yes
+  yum_repository:
+    file: "{{ visualStudioCode_repo_filename }}.repo"
+    name: code
+    description: Visual Studio Code
+    baseurl: https://packages.microsoft.com/yumrepos/vscode
+    enabled: 1
+    gpgcheck: yes
+    gpgkey: "{{ VSCode_gpg_key }}"

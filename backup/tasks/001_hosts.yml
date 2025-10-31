@@ -1,0 +1,24 @@
+---
+- debug:
+    msg: " ---- Setea Host ----"
+
+- name: Ensure hostname set
+  become: yes
+  hostname: name={{ ansible_host }}
+
+- name: set localhost in /etc/hosts
+  become: yes
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '^127\.0\.0\.1'
+    line: '127.0.0.1 localhost {{ ansible_host }}'
+
+- name: "Set hostname in /etc/hosts if IP == static"
+  become: yes
+  lineinfile:
+    dest: /etc/hosts
+    regexp: "^{{ ansible_default_ipv4.address }}.+$"
+    line: "{{ ansible_default_ipv4.address }} {{ ansible_fqdn }} {{ ansible_hostname }}"
+  when: "'{{ NET_TYPE }}' == 'STATIC'"
+
+

@@ -1,0 +1,36 @@
+---
+
+- debug:
+    msg: " ---- installacion / configuracion Compiz ----"
+
+- name: "Include 014_entorno_grafico_compiz_fedora"
+  include_tasks: fedora/014_entorno_grafico_compiz_fedora.yml
+  when: ansible_facts['distribution'] == "Fedora"
+
+- name: "Include 014_entorno_grafico_compiz_ubuntu"
+  include_tasks: ubuntu/014_entorno_grafico_compiz_ubuntu.yml
+  when: ansible_facts['distribution'] == "Ubuntu"
+
+#Deshabilita compiz
+#gsettings reset org.mate.session.required-components windowmanager
+
+
+- name: "Copy script import config compiz"
+  copy:
+    src: "GUI/compiz_config.py"
+    dest: "{{ HOME }}/scipts/"
+    mode: '0755'
+   
+- name: "Copy config profile for compiz"
+  copy:
+    src: "GUI/Compiz_profiles"
+    dest: "{{ HOME }}/"
+
+
+#https://askubuntu.com/questions/244333/compiz-profile-settings-export-and-import-using-command-line
+#https://ubuntuperonista.blogspot.com/2020/06/como-instalo-y-configuro-compiz-en-ubuntu-mate-2004focal.html
+
+
+- pause:
+    prompt: "Falta realizar importacion de la configuracion de compiz"
+

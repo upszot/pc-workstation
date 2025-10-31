@@ -1,0 +1,57 @@
+---
+
+- debug:
+    msg: "---- Agregando Docker  ----"
+
+- name: "Quito paquetes docker viejos" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - docker
+    - docker-client
+    - docker-client-latest
+    - docker-common
+    - docker-latest
+    - docker-latest-logrotate
+    - docker-logrotate
+    - docker-selinux
+    - docker-engine-selinux
+    - docker-engine
+
+
+- name: "Include Instalacion paquetes desarrollo"
+  include_tasks: fedora/012_add_docker_fedora.yml
+  when: ansible_facts['distribution'] == "Fedora"
+
+- name: "Include Instalacion paquetes desarrollo"
+  include_tasks: ubuntu/012_add_docker_ubuntu.yml
+  when: ansible_facts['distribution'] == "Ubuntu"
+
+
+- name: "Instalando docker" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - docker-ce 
+    - docker-ce-cli
+    - containerd.io
+    - docker-compose
+
+- name: "Adding user: {{ ansible_user_id }} to grups docker"
+  become: yes
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: yes
+
+- name: Restart service docker
+  become: yes
+  service:
+    name: docker
+    state: restarted
+    enabled: yes
+

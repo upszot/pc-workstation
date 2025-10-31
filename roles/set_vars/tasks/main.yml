@@ -1,0 +1,45 @@
+---
+# tasks file for set_vars
+
+#------------------------#
+#  Seteo de Variables de acuerdo al SO
+#
+#
+# - Seteo grupo GROUP_ADMIN de acuerdo a la distribucion para permisos de sudo
+# - Obtengo si tengo IP dinamica o statica
+# - Obtengo Usuario del equpo de origen para despues clonarlo en los distintos host remotos.
+#------------------------#
+
+#-------- Debian y derivados ----------------#
+- name: "Set GROUP_ADMIN - Debian_family"
+  set_fact:
+    GROUP_ADMIN: "{{ DEBIAN_GROUP_ADMIN }}"
+  when: ansible_facts['os_family'] == "Debian"
+  tags:
+    - user_config
+
+
+#-------- RedHat y derivados ----------------#
+- name: "Set GROUP_ADMIN - RedHat_family"
+  set_fact:
+    GROUP_ADMIN: "{{ REDHAT_GROUP_ADMIN }}"
+  when: ansible_facts['os_family'] == "RedHat"
+
+
+#----------- Generales ---------------------#
+
+
+- name: "Get IP type (dinamic or static)"
+  shell: (ip route |grep default | grep -i dhcp -c  |awk '{ if ($0 == 1) print "DHCP";  else if ($0 == 0) print "STATIC"; } ' )
+  register: command_result
+ 
+- name: "Set Net type"
+  set_fact:
+    NET_TYPE: "{{ command_result.stdout }}"
+
+- name: "Get USERNAME y HOME con el que se conecto a: {{ ansible_hostname }}"
+  set_fact:
+    USERNAME: "{{ ansible_facts.user_id }}"
+    HOME: "{{ ansible_facts.user_dir }}"
+
+

@@ -1,0 +1,42 @@
+---
+# tasks file for roles/generic_config
+
+- debug:
+    msg: "---- Realizando Configuraciones genericas  ----"
+
+- name: "Include: {{ ansible_facts['distribution'] }}/generic_config.yml"
+  include_tasks: "{{ ansible_facts['distribution'] }}/generic_config.yml"
+
+
+- name: "add NOPASSWD in sudores for group {{ GROUP_ADMIN }}"
+  become: yes
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: '^%{{ GROUP_ADMIN }}'
+    line: '%{{ GROUP_ADMIN }} ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+
+- name: "Upload alias generales"
+  become: yes
+  copy:
+    src: "{{ item }}"
+    dest: /etc/profile.d/
+    owner: root
+    group: root
+    #mode: 0755
+  with_items:
+    - 00-aliases.sh
+
+- name: Disable firewalld or iptable
+  become: yes
+  ansible.builtin.service:
+    name: "{{ item}}"
+    enabled: no
+    state: stopped
+  with_items:
+    - iptables
+    - firewalld
+  ignore_errors: yes
+
+

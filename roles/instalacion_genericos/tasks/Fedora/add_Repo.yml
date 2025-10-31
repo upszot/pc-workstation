@@ -1,0 +1,21 @@
+---
+
+- name: "Instalar paquetes basicos" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - fedora-workstation-repositories #fedora
+    - dnf-plugins-core
+
+
+    
+- name: Instalo google-chrome desde el repo de google
+  become: yes
+  dnf:
+    name: google-chrome-stable
+    enablerepo: google-chrome
+    state: present
+
+

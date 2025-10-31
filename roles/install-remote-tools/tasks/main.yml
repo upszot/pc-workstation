@@ -1,0 +1,30 @@
+---
+# tasks file for roles/install-remote-tools
+
+- debug:
+    msg: "---- install-remote-tools  ----"
+
+- name: "Include Repos"
+  include_tasks: "{{ ansible_facts['distribution'] }}/add_Repo.yaml"
+
+- name: "Instalar paquetes para conectarse escritorios remotos" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - virt-viewer
+    - remmina
+    - anydesk
+
+- name: "anydesk -silent --restart-service"
+  become: yes
+  shell: "anydesk --silent --restart-service"
+
+- name: "anydesk get_id"
+  shell: "anydesk --get-id"
+  register: ID_ANYDESK
+
+- debug:
+    msg: "ID Anydesk: {{ ID_ANYDESK.stdout }}"
+

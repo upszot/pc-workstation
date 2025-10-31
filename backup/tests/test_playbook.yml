@@ -1,0 +1,10 @@
+- hosts:
+    - tests
+    - productivos
+    - Laburo
+    - SO_UTN
+
+  roles:
+    - role: pc-workstation
+
+

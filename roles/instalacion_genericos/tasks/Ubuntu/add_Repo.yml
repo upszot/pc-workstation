@@ -1,0 +1,32 @@
+---
+
+- name: "Instalacion_genericos_ubuntu: Manejo de selinux" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - apt-transport-https
+    - software-properties-common
+    - ca-certificates
+    - policycoreutils
+    - policycoreutils-python-utils
+    - python3-selinux
+    - selinux-utils
+    - selinux-basics
+
+#--------- add Repo google chrome -----------#
+- name: Debian/Ubuntu Family | Add gpg signing key for {{ chrome_app_name }}
+  become: yes
+  apt_key:
+    url: "{{ chrome_gpg_key }}"
+    state: present
+
+- name: Debian/Ubuntu Family | Adding repository {{ chrome_repo_debian }}
+  become: yes
+  apt_repository:
+    repo: "{{ chrome_repo_debian }}"
+    filename: "{{ chrome_repo_filename }}"
+    state: present
+    update_cache: yes
+

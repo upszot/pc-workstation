@@ -1,0 +1,19 @@
+---
+# vars file for install_VirtualBox
+
+virtualbox_app_deb: virtualbox
+virtualbox_app_rpm: VirtualBox-7.*
+virtualbox_guest_additions_deb: virtualbox-guest-additions-iso
+virtualbox_guest_additions_rpm: virtualbox-guest-additions
+
+#------- Vars Comunes entra las distros --------#
+VirtualBox_repo_filename: virtualbox
+
+#GPG_key
+virtualbox_gpg_key_01: "https://www.virtualbox.org/download/oracle_vbox_2016.asc"
+virtualbox_gpg_key_02: "https://www.virtualbox.org/download/oracle_vbox.asc"
+
+#Repos 
+#-- Se definen dentro de task/ubuntu/013_add_VirtualBox_ubuntu.yml
+#VirtualBox_repo_debian: "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian jammy contrib"
+

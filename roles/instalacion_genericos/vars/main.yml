@@ -1,0 +1,22 @@
+---
+# vars file for instalacion_genericos
+
+#------- Nombres de paquetes --------------#
+chrome_app_name: google-chrome-stable
+
+
+#------- Comunes entra las distros --------#
+chrome_repo_filename: google-chrome
+anydesk_repo_filename: anydesk-stable
+
+#GPG_key
+chrome_gpg_key: "https://dl.google.com/linux/linux_signing_key.pub"
+anydesk_gpg_key_DEB: "https://keys.anydesk.com/repos/DEB-GPG-KEY"
+anydesk_gpg_key_RPM: "https://keys.anydesk.com/repos/RPM-GPG-KEY"
+
+
+#------- Ubuntu --------#
+#Repos 
+chrome_repo_debian:     "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
+anydesk_repo_debian:    "deb http://deb.anydesk.com/ all main"
+

@@ -1,0 +1,119 @@
+---
+- hosts: 
+  - testing
+  - produccion
+
+  tasks:
+    - name: "Tarea Antes"
+      debug:
+        msg: "Antes de la ejecucion de los roles"
+      tags:
+        - always
+
+      # SOLO PARA PRUEBAS TEMPORALES
+    - name: "Import role: pruebas"
+      import_role:
+        name: pruebas
+      tags:
+        - pruebas
+        - never
+
+#---------- Recoleccion de datos ----------#
+    - name: "Import role: set_vars"
+      import_role:
+        name: set_vars
+      tags:
+        - always
+        - set_vars
+
+    - name: "Import role: host_config"
+      import_role:
+        name: host_config
+      tags:
+        - host_config
+
+#---------- Crea el Host-Remoto mismo Usuario que local ----------#
+    - name: "Import role: user_clone"
+      import_role:
+        name: user_clone
+      tags:
+        - never
+        - user_clone
+
+
+#---------- 
+
+      # Instalacion paquetes Genericos
+    - name: "Import role: instalacion_genericos"
+      import_role:
+        name: instalacion_genericos
+      tags:
+        - instalacion_genericos
+
+      # Instalacion paquetes remote tools
+    - name: "Import role: install-remote-tools"
+      import_role:
+        name: install-remote-tools
+      tags:
+        - install-remote-tools
+
+#---------- Config Genericas -------------#
+      # Configuraciones genericas
+    - name: "Import role: generic_config"
+      import_role:
+        name: generic_config
+      tags:
+        - generic_config
+
+      # Bug_kernel_207759_Touchpad ("LENOVO - IdeaPad 3 15IIL05")
+    - name: "Import role: Fix-KernelBug_207759"
+      import_role:
+        name: Fix-KernelBug_207759
+      tags:
+        - Fix-KernelBug_207759
+        - never
+
+#----------  Herramientas de desarrollo ----#
+    - name: "Import role: instalacion_desarrollo"
+      import_role:
+        name: instalacion_desarrollo
+      tags:
+        - instalacion_desarrollo
+
+#----------  Manejador de ventanas ----#
+    - name: "Import role: Compiz_config"
+      import_role:
+        name: Compiz_config
+      tags:
+        - Compiz_config
+
+#----------  Herramientas de virtualizacion microservicios y vm -----#
+    - name: "Import role: install_docker"
+      import_role:
+        name: install_docker
+      tags:
+        - install_docker
+    
+    - name: "Import role: install_VirtualBox"
+      import_role:
+        name: install_VirtualBox
+      tags:
+        - install_VirtualBox
+        - never # Tiene un Bug. en fedora 42...
+
+#----------  Plataformas Gamers ----#
+    
+    - name: "Import role: install_Gaming_Platforms"
+      import_role:
+        name: install_Gaming_Platforms
+      tags:
+        - install_Gaming_Platforms
+
+
+#---------- 
+    - name: "Tarea Despues"
+      debug:
+        msg: "Despues de la ejecucion de los roles"
+      tags:
+        - always
+

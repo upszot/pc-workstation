@@ -1,0 +1,25 @@
+---
+
+# - name: "add repo oficial de docker"
+#   become: yes 
+#   shell: "dnf config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo"
+
+- name: "Add repo oficial docker (usando yum_repository)"
+  become: yes
+  ansible.builtin.yum_repository:
+    name: docker-ce
+    description: docker-ce Oficial repo
+    baseurl: https://download.docker.com/linux/fedora/docker-ce.repo
+    gpgcheck: yes
+    repo_gpgcheck: yes
+    gpgkey: https://download.docker.com/linux/fedora/gpg
+    enabled: 1
+
+
+#Desde fedora 30 si no se agrega no levantaba docker..
+- name: Update Grub default config
+  become: yes 
+  shell: grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0" 
+
+
+

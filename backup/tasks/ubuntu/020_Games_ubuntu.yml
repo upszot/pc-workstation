@@ -1,0 +1,44 @@
+---
+
+- name: "Set EpicGame vars"
+  set_fact:
+    EpicGame_URL_APP: "{{ EpicGame_URL}}{{ EpicGame_app_deb }}"
+    EpicGame_APP: "{{ EpicGame_app_deb | basename }}"
+
+#----------- Repos STEAM -------------#
+
+  #sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B05498B7
+- name: "Add Steam apt key by id from a keyserver"
+  become: yes
+  ansible.builtin.apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: "{{ steam_gpg_IDkey_DEB }}"
+    state: present
+
+- name: "Debian/Ubuntu Family | Adding repository steam"
+  become: yes
+  apt_repository:
+    repo: "{{ steam_repo_debian }}"
+    filename: "{{ steam_repo_filename }}"
+    state: present
+    update_cache: yes
+
+#-------------------------------------#
+
+- name: "Instalando Dependencias  " 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - gdebi-core
+    - libgl1-mesa-glx:i386
+
+  #https://lutris.net/downloads/
+- name: Add lutris repository from PPA
+  become: yes
+  ansible.builtin.apt_repository:
+    repo: 'ppa:lutris-team/lutris'
+    state: present
+    update_cache: yes
+

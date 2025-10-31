@@ -1,5 +1,11 @@
 # pc-workstation  
 
+> [!WARNING]
+> Este branch esta en desarrollo...  
+> la idea es realizar un refactor de todos los include_task a roles.  
+> para que sea mas ordenado.  
+
+
 <div>	   
 <table >
   <tr>
@@ -20,7 +26,7 @@
 - Instala docker y docker-compose
 - instala y configura virtualbox y vagrant
 - Instala plataformas de juegos 
-- Instala y configura AnyConnect (VPN Cisco Client)
+<!-- - Instala y configura AnyConnect (VPN Cisco Client) -->
 
 ## Plataformas testeadas:
 - [X] Fedora-Mate-33

@@ -1,0 +1,51 @@
+---
+#----------------------------------------#
+# Install y config VirtualBox
+#----------------------------------------#
+
+# https://www.virtualbox.org/wiki/Linux_Downloads
+
+- debug:
+    msg: "---- Agregando VirtualBox  ----"
+
+
+- name: "Include Repos"
+  include_tasks: "{{ ansible_facts['distribution'] }}/add_Repo.yml"
+
+
+- name: "Instalar virtualbox " 
+  become: true
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ VirtualBox_APP }}"
+    - "{{ VIRTUALBOX_GUEST_ADDITIONS }}"
+
+- name: "add group vboxusers"
+  become: true
+  ansible.builtin.group:
+    name: vboxusers
+    state: present
+
+- name: "Adding user: {{ ansible_user_id }} to grups vboxusers"
+  become: true
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: vboxusers
+    append: yes
+
+- name: "Agregando placas de red en VirtualBox "
+  shell: "{{ item }}"
+  with_items:
+    - VBoxManage hostonlyif create
+    - VBoxManage hostonlyif ipconfig vboxnet0  --ip 192.168.56.1 --netmask 255.255.255.0
+
+- name: "Instalar vagrant " 
+  become: true
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - vagrant
+

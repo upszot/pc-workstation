@@ -1,0 +1,38 @@
+---
+# - name: "add repo oficial sublime"
+#   ansible.builtin.apt_repository:
+#     repo: ppa:webupd8team/sublime-text-3
+
+
+#--------- add Repo sublime -----------#
+- name: "Debian/Ubuntu Family | Add gpg signing key for {{ sublime_gpg_key }}"
+  become: yes
+  apt_key:
+    url: "{{ sublime_gpg_key }}"
+    state: present
+
+- name: "Debian/Ubuntu Family | Adding repository {{ sublime_repo_debian }}"
+  become: yes
+  apt_repository:
+    repo: "{{ sublime_repo_debian }}"
+    filename: "{{ sublime_repo_filename }}"
+    state: present
+    update_cache: yes
+
+
+#--------- add Repo Visual Studio Code -----------#
+- name: "Debian/Ubuntu Family | Add gpg signing key for {{ VSCode_gpg_key }}"
+  become: yes
+  apt_key:
+    url: "{{ VSCode_gpg_key }}"
+    state: present
+
+- name: "Debian/Ubuntu Family | Adding repository {{ vscode_repo_debian }}"
+  become: yes
+  apt_repository:
+    repo: "{{ vscode_repo_debian }}"
+    filename: "{{ visualStudioCode_repo_filename }}"
+    state: present
+    update_cache: yes
+
+

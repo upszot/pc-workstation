@@ -1,0 +1,36 @@
+---
+# tasks file for instalacion_genericos
+
+- debug:
+    msg: "---- Instalacion de paquetes  ----"
+
+
+- name: "Include Repos"
+  include_tasks: "{{ ansible_facts['distribution'] }}/add_Repo.yml"
+
+
+- name: "Instalar paquetes basicos" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - ca-certificates
+    - curl
+    - vim
+    - gnupg2
+    - policycoreutils
+    - "{{ chrome_app_name }}"   #Los repos oficiales se agregan dependiendo del SO
+    - terminator
+    - wmctrl
+    - htop
+
+- name: "Instalar paquetes de redes" 
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - wget
+    - tcpdump
+    - fail2ban
