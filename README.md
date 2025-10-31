@@ -2,7 +2,7 @@
 
 > [!WARNING]
 > Este branch esta en desarrollo...  
-> la idea es realizar un refactor de todos los include_task a roles.  
+> La idea es realizar un refactor de todos los include_task a roles.  
 > para que sea mas ordenado.  
 
 
@@ -10,7 +10,7 @@
 <table >
   <tr>
     <td><img src="./tux_ninja.png" width="150" align="left" ></td>
-    <td>Rol de ansible para aprovisionar y configurar workstation.</td>
+    <td>Playbook de ansible para aprovisionar y configurar workstation.</td>
   </tr>		
 </table>
 </div>

@@ -3,3 +3,10 @@ logs/*.retry
 tests/*.retry
 logs/*.log
 _git-ignore
+.ansible
+.vagrant/
+*.swp
+*.bak
+*.tmp
+*.log
+backup
