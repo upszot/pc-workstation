@@ -2,7 +2,7 @@
 
 #--- usado para realizar pruebas ---#
 - name: "Pruebas - No incluir"
-  include: _prueba/pruebas.yml
+  include_tasks: _prueba/pruebas.yml
   tags:
     - never
     - pruebas
@@ -12,18 +12,18 @@
     msg: "---- INICIA ----"
 
 - name: "Seteo Variables segun OS_Family"
-  include: 000_set_vars.yml
+  include_tasks: 000_set_vars.yml
   tags:
     - always
     - set_vars
 
 - name: "Include creacion de usuarios"
-  include: 001_hosts.yml
+  include_tasks: 001_hosts.yml
   tags:
     - host_config
 
 - name: "Include creacion de usuarios"
-  include: 002_crear_usuario.yml
+  include_tasks: 002_crear_usuario.yml
   tags:
     - user_config
     - never
@@ -32,59 +32,59 @@
 
 #Incluye llamadas a los yml segun SO
 - name: "Include Instalacion paquetes genericos"
-  include: 003_instalacion_genericos.yml
+  include_tasks: 003_instalacion_genericos.yml
   tags:
     - install_genericos
 
 
 #---------- Config Genericas -------------#
 - name: "Realiza configuraciones genericas"
-  include: 004_config_genericas.yml
+  include_tasks: 004_config_genericas.yml
   tags:
     - config_genericos
 
 
 - name: "Fix-Bug_kernel_207759_Touchpad"
-  include: 005_Fix-KernelBug_207759_touchpad.yml
+  include_tasks: 005_Fix-KernelBug_207759_touchpad.yml
   tags:
     - Fix-KernelBug_207759
 
 
 #----------- Herramientas de desarrollo ----#
 - name: "Include Instalacion paquetes desarrollo"
-  include: 011_instalacion_desarrollo.yml
+  include_tasks: 011_instalacion_desarrollo.yml
   tags:
     - install_desarrollo
 
 #----------- Manejador de ventanas ----#
 - name: "Instalacion / Configuracion compiz"
-  include: 014_entorno_grafico_compiz.yml
+  include_tasks: 014_entorno_grafico_compiz.yml
   tags:
     - compiz
 
 #----- Herramientas de virtualizacion microservicios y vm -----#
 - name: "Include Docker"
-  include: 012_add_docker.yml
+  include_tasks: 012_add_docker.yml
   tags:
     - add_docker
 
 - name: "Install VirtualBox"
-  include: 013_add_VirtualBox.yml
+  include_tasks: 013_add_VirtualBox.yml
   tags:
     - add_VirtualBox
 
 - name: "Install plataformas de games"
-  include: 020_Games.yml
+  include_tasks: 020_Games.yml
   tags:
     - add_Games
 
 - name: "Install y Config Cliente VPN Cisco"
-  include: 030_VPN.yml
+  include_tasks: 030_VPN.yml
   tags:
     - VPN
 
 - name: "Acceso remoto - Mantenimiento"
-  include: 031_Access_Maintainer.yml
+  include_tasks: 031_Access_Maintainer.yml
   tags:
     - Mantenimiento
 

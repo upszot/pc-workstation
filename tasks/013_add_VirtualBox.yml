@@ -9,11 +9,11 @@
     msg: "---- Agregando VirtualBox  ----"
 
 - name: "Include 013_add_VirtualBox_fedora"
-  include: fedora/013_add_VirtualBox_fedora.yml
+  include_tasks: fedora/013_add_VirtualBox_fedora.yml
   when: ansible_facts['distribution'] == "Fedora"
 
 - name: "Include 013_add_VirtualBox_ubuntu"
-  include: ubuntu/013_add_VirtualBox_ubuntu.yml
+  include_tasks: ubuntu/013_add_VirtualBox_ubuntu.yml
   when: ansible_facts['distribution'] == "Ubuntu"
 
 - name: "Instalar virtualbox " 

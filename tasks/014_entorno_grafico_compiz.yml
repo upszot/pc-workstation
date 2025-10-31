@@ -4,11 +4,11 @@
     msg: " ---- installacion / configuracion Compiz ----"
 
 - name: "Include 014_entorno_grafico_compiz_fedora"
-  include: fedora/014_entorno_grafico_compiz_fedora.yml
+  include_tasks: fedora/014_entorno_grafico_compiz_fedora.yml
   when: ansible_facts['distribution'] == "Fedora"
 
 - name: "Include 014_entorno_grafico_compiz_ubuntu"
-  include: ubuntu/014_entorno_grafico_compiz_ubuntu.yml
+  include_tasks: ubuntu/014_entorno_grafico_compiz_ubuntu.yml
   when: ansible_facts['distribution'] == "Ubuntu"
 
 #Deshabilita compiz
